@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Vivox — Connect. Create. Build. Earn.">
+<title>Vivox — Social, Creator, Developer & AI Ecosystem</title>
+<style>
+:root{
+  --navy:#172554;--blue:#2563eb;--blue2:#dbeafe;--gray:#64748b;
+  --light:#f1f5f9;--orange:#f97316;--mustard:#d4a017;--white:#fff;
+  --border:#e2e8f0;--text:#172033;--muted:#64748b;--danger:#dc2626;
+  --shadow:0 10px 30px rgba(15,23,42,.07);--radius:16px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#f8fafc;color:var(--text)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;border:0}
+a{text-decoration:none;color:inherit}
+.app{min-height:100vh}
+.header{height:68px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;display:flex;align-items:center;padding:0 22px;gap:20px}
+.logo{font-size:25px;font-weight:900;letter-spacing:-1px;color:var(--navy);min-width:105px}
+.logo span{color:var(--blue)}
+.search{position:relative;max-width:390px;flex:1}
+.search input{width:100%;background:var(--light);border:1px solid transparent;border-radius:12px;padding:11px 16px 11px 42px;outline:0}
+.search input:focus{border-color:#bfdbfe;background:white}
+.search:before{content:"⌕";position:absolute;left:15px;top:7px;font-size:24px;color:var(--gray)}
+.header-actions{margin-left:auto;display:flex;gap:8px;align-items:center}
+.icon-btn{width:42px;height:42px;border-radius:12px;background:transparent;color:var(--navy);font-size:19px}
+.icon-btn:hover{background:var(--light)}
+.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--navy));color:white;display:grid;place-items:center;font-weight:800}
+.layout{display:grid;grid-template-columns:235px minmax(0,720px) 285px;gap:22px;max-width:1400px;margin:auto;padding:22px}
+.sidebar,.rightbar{position:sticky;top:90px;height:max-content}
+.nav-item{display:flex;align-items:center;gap:13px;padding:12px 14px;border-radius:12px;margin-bottom:5px;color:#475569;font-weight:650}
+.nav-item:hover,.nav-item.active{background:var(--blue2);color:var(--blue)}
+.nav-icon{width:24px;text-align:center}
+.section-title{font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.09em;margin:22px 14px 8px;font-weight:800}
+.card{background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.composer{padding:16px;margin-bottom:16px}
+.composer-top{display:flex;gap:12px}
+.composer textarea{flex:1;border:0;background:var(--light);border-radius:14px;padding:13px;resize:none;outline:0;min-height:52px}
+.composer-tools{display:flex;justify-content:space-between;align-items:center;margin-top:13px}
+.tool-row{display:flex;gap:5px}
+.tool{padding:8px 10px;border-radius:9px;background:transparent;color:var(--gray)}
+.tool:hover{background:var(--light)}
+.primary{background:var(--blue);color:white;padding:9px 16px;border-radius:10px;font-weight:750}
+.primary:hover{filter:brightness(.94)}
+.story-row{display:flex;gap:12px;overflow:auto;padding:4px 1px 16px}
+.story{min-width:76px;text-align:center;font-size:11px;color:var(--muted)}
+.story-avatar{width:58px;height:58px;border:3px solid var(--orange);border-radius:50%;margin:auto auto 5px;display:grid;place-items:center;background:#eff6ff;font-weight:800;color:var(--navy)}
+.post{margin-bottom:16px;overflow:hidden}
+.post-head{display:flex;align-items:center;gap:11px;padding:16px 16px 8px}
+.post-meta{flex:1}.post-name{font-weight:800}.post-time{font-size:12px;color:var(--muted);margin-top:2px}
+.more{color:var(--muted);font-size:21px}
+.post-body{padding:8px 16px 13px;line-height:1.55}
+.tags{color:var(--blue);font-size:13px}
+.post-media{margin:0 16px 14px;border-radius:13px;overflow:hidden;background:linear-gradient(135deg,#dbeafe,#e2e8f0);min-height:240px;display:grid;place-items:center;color:var(--navy);font-size:42px}
+.code-media{background:#0f172a;color:#e2e8f0;display:block;padding:22px;font-family:ui-monospace,monospace;font-size:13px;line-height:1.7;min-height:auto}
+.post-actions{border-top:1px solid var(--border);display:flex;padding:5px 10px}
+.action{flex:1;padding:10px 5px;background:transparent;border-radius:9px;color:#64748b}
+.action:hover{background:var(--light);color:var(--blue)}
+.action.liked{color:var(--blue);font-weight:800}
+.right-card{padding:16px;margin-bottom:16px}
+.right-card h3{font-size:15px;margin-bottom:14px}
+.trend,.suggestion{padding:10px 0;border-bottom:1px solid var(--border)}
+.trend:last-child,.suggestion:last-child{border:0}
+.trend small{color:var(--muted)}.trend b{display:block;margin:3px 0}
+.suggestion{display:flex;gap:9px;align-items:center}.suggestion .avatar{width:36px;height:36px;font-size:12px}
+.suggestion-info{flex:1;font-size:13px}.suggestion-info small{color:var(--muted)}
+.follow{background:var(--blue2);color:var(--blue);padding:7px 9px;border-radius:9px;font-size:12px;font-weight:800}
+.bottom-nav{display:none}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--navy);color:white;padding:13px 17px;border-radius:12px;box-shadow:var(--shadow);z-index:100;opacity:0;transform:translateY(10px);transition:.2s}
+.toast.show{opacity:1;transform:none}
+.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;place-items:center;z-index:90;padding:20px}
+.modal-bg.show{display:grid}
+.modal{width:min(520px,100%);background:white;border-radius:18px;padding:22px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.close{background:var(--light);border-radius:9px;width:34px;height:34px}
+.modal input,.modal select,.modal textarea{width:100%;border:1px solid var(--border);padding:11px;border-radius:10px;margin:7px 0 14px;outline:0}
+.login-screen{display:none;position:fixed;inset:0;background:linear-gradient(135deg,#eff6ff,#fff);z-index:120;place-items:center;padding:20px}
+.login-box{width:min(430px,100%);background:white;border:1px solid var(--border);box-shadow:var(--shadow);border-radius:22px;padding:30px}
+.login-box h1{text-align:center;color:var(--navy);margin-bottom:8px}.login-box p{text-align:center;color:var(--muted);margin-bottom:25px}
+.login-box label{font-size:13px;font-weight:700}.login-box input{width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;margin:7px 0 14px}
+.login-box .primary{width:100%;padding:12px}.login-links{text-align:center;margin-top:15px;color:var(--blue);font-size:13px}
+.page-title{font-size:24px;margin:5px 0 16px}
+.explore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{height:180px;border-radius:13px;background:linear-gradient(135deg,#dbeafe,#cbd5e1);display:grid;place-items:center;font-size:32px;overflow:hidden}
+.hide{display:none!important}
+.footer{padding:20px 0 80px;text-align:center;color:#94a3b8;font-size:12px}
+@media(max-width:1100px){.layout{grid-template-columns:80px minmax(0,720px);justify-content:center}.sidebar .nav-text,.sidebar .section-title{display:none}.sidebar{top:90px}.nav-item{justify-content:center}.rightbar{display:none}}
+@media(max-width:700px){
+ .header{padding:0 12px;gap:8px}.logo{min-width:auto}.search{display:none}.layout{display:block;padding:12px}.sidebar{display:none}
+ .bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);height:62px;z-index:60;justify-content:space-around}
+ .bottom-nav button{background:none;color:var(--gray);font-size:11px}.bottom-nav b{display:block;font-size:19px;margin-bottom:2px}
+ .header-actions .icon-btn:nth-child(2){display:none}.composer{margin-top:5px}.explore-grid{grid-template-columns:repeat(2,1fr)}.tile{height:150px}
+}
+
+/* ===================== VIVOX ADMIN PANEL V2 ===================== */
+.admin-page{display:none;position:fixed;inset:0;background:#f8fafc;z-index:110;overflow:auto}
+.admin-page.show{display:block}
+.admin-shell{min-height:100vh;display:grid;grid-template-columns:245px 1fr}
+.admin-side{background:#0f1b3d;color:#dbeafe;padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto}
+.admin-brand{font-size:23px;font-weight:900;padding:8px 10px 22px;color:#fff}
+.admin-brand span{color:#60a5fa}
+.admin-role{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px;margin-bottom:18px;font-size:12px}
+.admin-nav button{width:100%;display:flex;gap:10px;align-items:center;text-align:left;background:transparent;color:#cbd5e1;padding:11px 12px;border-radius:10px;margin:3px 0}
+.admin-nav button:hover,.admin-nav button.active{background:#2563eb;color:#fff}
+.admin-nav .nav-group{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#64748b;margin:18px 12px 7px}
+.admin-main{min-width:0}
+.admin-top{height:68px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;padding:0 24px;position:sticky;top:0;z-index:5}
+.admin-top h1{font-size:19px;flex:1}
+.admin-top small{color:var(--muted)}
+.admin-close{background:#eef2ff;color:#1e3a8a;padding:9px 12px;border-radius:9px;font-weight:800}
+.admin-content{padding:24px;max-width:1500px;margin:auto}
+.admin-view{display:none}.admin-view.active{display:block}
+.admin-title{margin-bottom:18px}.admin-title h2{font-size:25px}.admin-title p{color:var(--muted);margin-top:4px}
+.admin-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.admin-kpi{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px;box-shadow:var(--shadow)}
+.admin-kpi small{color:var(--muted)}.admin-kpi b{display:block;font-size:25px;margin:6px 0}.up{color:#15803d;font-size:12px}.warn{color:#b45309;font-size:12px}.down{color:#b91c1c;font-size:12px}
+.admin-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:16px}
+.admin-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.admin-card h3{font-size:15px;margin-bottom:14px}
+.admin-bars{height:190px;display:flex;align-items:end;gap:9px;padding:15px 5px 0;border-top:1px solid #eef2f7}
+.admin-bar{flex:1;background:linear-gradient(to top,#2563eb,#60a5fa);border-radius:7px 7px 0 0;min-height:12px;position:relative}
+.admin-bar span{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:10px;color:#64748b}
+.admin-list{display:grid;gap:10px}.admin-list-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #eef2f7}.admin-list-item:last-child{border:0}
+.admin-list-item .grow{flex:1}.admin-list-item small{color:var(--muted)}
+.admin-table-wrap{overflow:auto}.admin-table{width:100%;border-collapse:collapse;min-width:760px}.admin-table th,.admin-table td{padding:12px 10px;text-align:left;border-bottom:1px solid #eef2f7;font-size:13px}.admin-table th{font-size:11px;color:#64748b;text-transform:uppercase}
+.badge{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:800}.badge.ok{background:#dcfce7;color:#166534}.badge.warn{background:#fef3c7;color:#92400e}.badge.danger{background:#fee2e2;color:#991b1b}.badge.info{background:#dbeafe;color:#1d4ed8}.badge.gray{background:#e2e8f0;color:#475569}
+.admin-actions{display:flex;gap:6px;flex-wrap:wrap}.admin-btn{border:1px solid var(--border);background:#fff;padding:7px 9px;border-radius:8px;font-size:11px;font-weight:750}.admin-btn:hover{border-color:#93c5fd;background:#eff6ff}.admin-btn.danger{color:#b91c1c}.admin-btn.primary{background:#2563eb;color:#fff;border-color:#2563eb}
+.admin-toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.admin-toolbar input,.admin-toolbar select{padding:10px;border:1px solid var(--border);border-radius:9px;background:#fff;outline:0}.admin-toolbar input{min-width:250px;flex:1}
+.admin-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.admin-feature{border:1px solid var(--border);border-radius:12px;padding:15px}.admin-feature h4{margin-bottom:7px}.admin-feature p{font-size:12px;color:var(--muted);line-height:1.5}
+.perm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.perm{border:1px solid var(--border);border-radius:11px;padding:12px}.perm b{display:block;margin-bottom:7px}.perm label{display:block;font-size:12px;color:#475569;margin:5px 0}.perm input{margin-right:7px}
+.security-score{display:flex;align-items:center;gap:18px}.score-ring{width:95px;height:95px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#2563eb 0 88%,#e2e8f0 88%);position:relative}.score-ring:after{content:"";position:absolute;width:70px;height:70px;background:#fff;border-radius:50%}.score-ring b{position:relative;z-index:1;font-size:20px}
+@media(max-width:1050px){.admin-kpis{grid-template-columns:repeat(2,1fr)}.admin-grid{grid-template-columns:1fr}.perm-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.admin-shell{grid-template-columns:1fr}.admin-side{position:relative;height:auto}.admin-nav{display:grid;grid-template-columns:repeat(2,1fr);gap:3px}.admin-content{padding:14px}.admin-kpis,.admin-cards{grid-template-columns:1fr}.admin-top{padding:0 14px}}
+
+
+/* VIVOX V3 */
+.v3-grid{display:grid;grid-template-columns:240px minmax(0,1fr) 300px;gap:18px;max-width:1500px;margin:auto;padding:18px}
+.v3-sidebar,.v3-right,.card,.composer,.story-card,.feature-card,.ai-card,.modal-card{background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}
+.v3-sidebar{padding:14px;height:max-content;position:sticky;top:86px}
+.v3-right{padding:16px;height:max-content;position:sticky;top:86px}
+.v3-main{min-width:0}
+.v3-nav{display:flex;flex-direction:column;gap:5px}
+.v3-nav button{background:transparent;text-align:left;padding:11px 12px;border-radius:11px;color:var(--text)}
+.v3-nav button:hover,.v3-nav button.active{background:var(--blue2);color:var(--blue);font-weight:700}
+.v3-section-title{display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px}
+.v3-section-title h2{font-size:19px}.muted{color:var(--muted);font-size:13px}
+.v3-hero{background:linear-gradient(135deg,#172554,#2563eb);color:white;border-radius:22px;padding:24px;margin-bottom:16px}
+.v3-hero h1{font-size:30px;margin:6px 0}.v3-hero p{opacity:.9;max-width:700px}
+.btn{padding:10px 14px;border-radius:11px;font-weight:700;background:var(--blue);color:white}.btn.light{background:white;color:var(--navy)}.btn.orange{background:var(--orange)}
+.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{border:1px solid var(--border);padding:7px 10px;border-radius:999px;background:#fff;font-size:12px}
+.stories{display:flex;gap:10px;overflow:auto;padding-bottom:4px}.story-card{min-width:92px;padding:10px;text-align:center}.story-avatar{width:54px;height:54px;border-radius:50%;margin:auto auto 7px;display:grid;place-items:center;background:var(--blue2);font-weight:900;color:var(--blue)}
+.composer{padding:16px}.composer textarea{width:100%;border:1px solid var(--border);border-radius:13px;padding:12px;min-height:72px;resize:vertical}.composer-row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:10px}
+.post{padding:17px;margin-top:14px;background:#fff;border:1px solid var(--border);border-radius:18px}.post-head{display:flex;gap:10px;align-items:center}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--blue2);color:var(--blue);font-weight:900}.post-body{padding:14px 0}.post-actions{display:flex;gap:7px;flex-wrap:wrap}.post-actions button{background:#f8fafc;border:1px solid var(--border);padding:8px 10px;border-radius:9px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.feature-card,.ai-card{padding:16px}.feature-card h3,.ai-card h3{margin:8px 0}.feature-icon{font-size:24px}
+.ai-hub{border:1px solid #bfdbfe;background:#eff6ff;border-radius:18px;padding:16px}.ai-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.ai-slot{background:white;border:1px solid #dbeafe;border-radius:14px;padding:13px}.ai-slot .status{font-size:11px;color:#15803d;font-weight:800}.ai-slot input,.ai-slot select{width:100%;padding:9px;border:1px solid var(--border);border-radius:9px;margin-top:7px}
+.ai-chat{display:grid;grid-template-columns:180px 1fr;gap:12px;margin-top:12px}.ai-list{background:#fff;border:1px solid var(--border);border-radius:14px;padding:10px}.ai-list button{display:block;width:100%;padding:9px;text-align:left;border-radius:8px;background:transparent}.ai-list button.active{background:var(--blue2);color:var(--blue);font-weight:700}.ai-output{background:#fff;border:1px solid var(--border);border-radius:14px;padding:15px;min-height:190px}.kpi{padding:14px;border:1px solid var(--border);border-radius:14px;background:#fff}.kpi b{font-size:25px;display:block}.list{display:flex;flex-direction:column;gap:9px}.list-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px;border-bottom:1px solid var(--border)}.trend-score{font-weight:900;color:var(--orange)}
+.market-card{padding:15px;border:1px solid var(--border);border-radius:15px;background:#fff}.market-thumb{height:110px;border-radius:12px;background:linear-gradient(135deg,#dbeafe,#f8fafc);display:grid;place-items:center;font-size:30px}
+.video-card{height:260px;border-radius:16px;background:linear-gradient(135deg,#172554,#2563eb);color:white;padding:16px;display:flex;flex-direction:column;justify-content:flex-end}.visual-card{height:170px;border-radius:15px;background:linear-gradient(135deg,#e0f2fe,#dbeafe);display:grid;place-items:center;font-size:42px}
+.profile-passport{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:16px;background:#fff;border:1px solid var(--border);border-radius:18px}.passport-id{font-family:ui-monospace,monospace;color:var(--blue)}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#fff7ed;color:#c2410c;font-size:11px;font-weight:800}
+.modal-wrap{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;z-index:100;padding:18px}.modal-wrap.open{display:flex}.modal-card{width:min(900px,100%);max-height:90vh;overflow:auto;padding:20px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.x{background:#f1f5f9;padding:7px 10px;border-radius:9px}
+.notice{padding:11px;border-radius:12px;background:#fff7ed;border:1px solid #fed7aa;font-size:13px}
+.bottom-nav{display:none}
+@media(max-width:1100px){.v3-grid{grid-template-columns:200px minmax(0,1fr)}.v3-right{display:none}.ai-slots{grid-template-columns:1fr}.grid3{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.v3-grid{display:block;padding:10px}.v3-sidebar{display:none}.bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);z-index:80;justify-content:space-around;padding:8px}.bottom-nav button{background:transparent;font-size:11px}.grid2,.grid3{grid-template-columns:1fr}.ai-chat{grid-template-columns:1fr}.v3-hero h1{font-size:23px}.profile-passport{grid-template-columns:auto 1fr}}
+
+/* ===================== VIVOX V4 ===================== */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:10px}
+.tabs button{background:transparent;padding:8px 12px;border-radius:9px;color:var(--muted);font-weight:700;font-size:13px}
+.tabs button.active{background:var(--blue2);color:var(--blue)}
+
+.campaign{padding:15px;border:1px solid var(--border);border-radius:14px;background:#fff;margin-bottom:10px}
+.campaign-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.budget-bar{height:8px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin:10px 0}
+.budget-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#60a5fa)}
+.audience-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+
+.tier{padding:18px;border:1px solid var(--border);border-radius:16px;background:#fff;text-align:center;position:relative}
+.tier.featured{border-color:var(--blue);box-shadow:0 10px 30px rgba(37,99,235,.14)}
+.tier h3{font-size:16px}.tier .price{font-size:26px;font-weight:900;color:var(--navy);margin:6px 0}
+.tier ul{list-style:none;text-align:left;margin:12px 0;font-size:13px;color:var(--muted)}
+.tier ul li{padding:5px 0;border-bottom:1px dashed var(--border)}
+
+.gift-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.gift{padding:14px;border:1px solid var(--border);border-radius:14px;background:#fff;text-align:center;cursor:pointer;transition:.15s}
+.gift:hover{border-color:var(--blue);transform:translateY(-2px)}
+.gift .emoji{font-size:30px}.gift b{display:block;margin-top:6px;font-size:13px}
+.gift small{color:var(--muted);font-size:11px}
+
+.qr{width:170px;height:170px;background:
+  repeating-linear-gradient(90deg,#0f172a 0 8px,#fff 8px 16px),
+  repeating-linear-gradient(0deg,transparent 0 8px,#0f172a 8px 16px);
+  border-radius:14px;border:6px solid #fff;box-shadow:0 10px 30px rgba(15,23,42,.15);margin:auto}
+.tx{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+.tx:last-child{border:0}.tx .grow{flex:1}.tx .amt{font-weight:800}
+
+.event-card{display:flex;gap:12px;padding:14px;border:1px solid var(--border);border-radius:14px;background:#fff;margin-bottom:10px}
+.event-date{min-width:64px;text-align:center;background:var(--blue2);border-radius:12px;padding:10px 6px;color:var(--blue);font-weight:900}
+.event-date small{display:block;font-size:10px;color:var(--blue);opacity:.75}
+.event-info{flex:1}.event-info b{display:block;margin-bottom:4px}
+
+.poll-option{position:relative;padding:11px 14px;border:1px solid var(--border);border-radius:11px;margin-bottom:7px;overflow:hidden;cursor:pointer;background:#fff}
+.poll-option i{position:absolute;inset:0;background:#dbeafe;width:0;transition:.4s;z-index:0}
+.poll-option span{position:relative;z-index:1;display:flex;justify-content:space-between}
+
+.mission{padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff;margin-bottom:8px;display:flex;gap:10px;align-items:center}
+.mission .grow{flex:1}.mission.done{opacity:.55;text-decoration:line-through}
+.leader-row{display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid var(--border)}
+.leader-row:last-child{border:0}.rank{width:26px;height:26px;border-radius:50%;background:var(--blue2);color:var(--blue);display:grid;place-items:center;font-weight:900;font-size:12px}
+.rank.gold{background:#fef3c7;color:#b45309}.rank.silver{background:#e2e8f0;color:#475569}.rank.bronze{background:#fed7aa;color:#9a3412}
+
+.space-seat{width:64px;height:64px;border-radius:50%;background:var(--blue2);color:var(--blue);display:grid;place-items:center;font-weight:900;position:relative}
+.space-seat.talking:after{content:"";position:absolute;inset:-6px;border:3px solid var(--blue);border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.space-stage{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;padding:18px;background:#f8fafc;border-radius:16px}
+
+.thread{display:flex;gap:12px;padding:14px;border:1px solid var(--border);border-radius:12px;background:#fff;margin-bottom:9px}
+.votes{display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:800;color:var(--muted)}
+.votes button{background:transparent;font-size:16px;color:var(--muted);padding:2px}
+.votes button:hover{color:var(--blue)}
+.answer-ok{border-color:#86efac;background:#f0fdf4}
+
+.bounty{padding:14px;border:1px solid var(--border);border-radius:14px;background:#fff;margin-bottom:10px;position:relative}
+.bounty .reward{position:absolute;top:12px;right:12px;background:#fff7ed;color:#c2410c;font-weight:900;padding:6px 10px;border-radius:99px;font-size:12px}
+
+.collection{padding:14px;border:1px solid var(--border);border-radius:14px;background:#fff}
+.collection-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:10px 0}
+.collection-grid div{padding:20% 0;background:linear-gradient(135deg,#dbeafe,#e2e8f0);border-radius:8px}
+
+.campus{padding:16px;border-radius:16px;color:#fff;background:linear-gradient(135deg,#172554,#2563eb);min-height:120px;display:flex;flex-direction:column;justify-content:space-between}
+.campus.orange{background:linear-gradient(135deg,#7c2d12,#f97316)}
+.campus.green{background:linear-gradient(135deg,#14532d,#22c55e)}
+
+.code-box{background:#0f172a;color:#e2e8f0;border-radius:14px;padding:16px;font-family:ui-monospace,monospace;font-size:13px;line-height:1.7}
+.code-box .kw{color:#93c5fd}.code-box .str{color:#86efac}.code-box .com{color:#64748b;font-style:italic}
+.run-bar{display:flex;gap:8px;align-items:center;background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:8px 10px;margin-bottom:10px}
+.run-bar select{padding:6px 8px;border-radius:8px;border:1px solid var(--border)}
+.preview{background:#fff;border:1px dashed var(--border);border-radius:12px;padding:16px;min-height:120px}
+
+.repo{padding:14px;border:1px solid var(--border);border-radius:12px;background:#fff;margin-bottom:9px}
+.repo-head{display:flex;justify-content:space-between;gap:10px}.repo-head b{color:var(--blue)}
+
+.webhook{padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff;margin-bottom:8px}
+.webhook code{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:12px}
+.dot-live{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:6px}
+.dot-err{background:#dc2626}.dot-warn{background:#f59e0b}
+
+.order{display:grid;grid-template-columns:90px 1fr auto;gap:12px;align-items:center;padding:12px;border-bottom:1px solid var(--border)}
+.order:last-child{border:0}.order .thumb{width:70px;height:70px;border-radius:10px;background:linear-gradient(135deg,#dbeafe,#e2e8f0);display:grid;place-items:center;font-size:24px}
+.license{padding:14px;border:1px solid var(--border);border-radius:12px;background:#fff}
+.license.selected{border-color:var(--blue);box-shadow:0 8px 20px rgba(37,99,235,.12)}
+.variant{padding:8px 12px;border:1px solid var(--border);border-radius:9px;background:#fff;font-size:13px}
+.variant.active{border-color:var(--blue);background:var(--blue2);color:var(--blue);font-weight:800}
+.variant.dim{opacity:.4;cursor:not-allowed}
+.step{display:flex;gap:10px;padding:12px;border-radius:12px;background:#f8fafc;margin-bottom:8px;align-items:center}
+.step .n{width:24px;height:24px;border-radius:50%;background:#e2e8f0;color:#475569;display:grid;place-items:center;font-weight:900;font-size:12px}
+.step.ok .n{background:#22c55e;color:#fff}.step.warn .n{background:#f59e0b;color:#fff}.step.err .n{background:#dc2626;color:#fff}
+.bundle{display:flex;gap:10px;align-items:center;padding:12px;border:1px dashed var(--border);border-radius:12px;background:#fff}
+
+.queue{padding:14px;border:1px solid var(--border);border-radius:12px;background:#fff;margin-bottom:8px}
+.queue .head{display:flex;justify-content:space-between;gap:10px;margin-bottom:6px}
+.severity{display:inline-block;padding:3px 8px;border-radius:99px;font-size:11px;font-weight:800}
+.severity.low{background:#dcfce7;color:#166534}.severity.mid{background:#fef3c7;color:#92400e}.severity.high{background:#fee2e2;color:#991b1b}
+.step-verify{display:flex;gap:12px;align-items:center;padding:14px;border:1px solid var(--border);border-radius:12px;background:#fff}
+.step-verify .icon{width:44px;height:44px;border-radius:12px;background:var(--blue2);color:var(--blue);display:grid;place-items:center;font-size:20px}
+.upload{border:2px dashed var(--border);border-radius:14px;padding:20px;text-align:center;background:#f8fafc}
+.upload:hover{border-color:var(--blue);background:#eff6ff}
+
+.code-chip{display:inline-flex;gap:6px;padding:8px 10px;background:#0f172a;color:#e2e8f0;border-radius:9px;font-family:ui-monospace,monospace;font-size:13px;margin:4px 0}
+.device{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff;margin-bottom:8px}
+.device .icon{width:40px;height:40px;border-radius:10px;background:#f1f5f9;display:grid;place-items:center;font-size:18px}
+.device.current{border-color:#86efac;background:#f0fdf4}
+.logrow{font-family:ui-monospace,monospace;font-size:12px;padding:9px 10px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:150px 120px 1fr;gap:10px}
+.logrow:last-child{border:0}.logrow .t{color:var(--muted)}.logrow .a{color:var(--blue);font-weight:800}
+
+.quota{margin-bottom:14px}
+.quota .head{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+.quota .bar{height:10px;border-radius:99px;background:#e2e8f0;overflow:hidden}
+.quota .bar i{display:block;height:100%;background:linear-gradient(90deg,#22c55e,#86efac)}
+.quota.warn .bar i{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+.quota.err .bar i{background:linear-gradient(90deg,#dc2626,#f87171)}
+.switch{position:relative;display:inline-block;width:46px;height:26px}
+.switch input{opacity:0;width:0;height:0}
+.switch span{position:absolute;inset:0;background:#cbd5e1;border-radius:99px;transition:.2s}
+.switch span:before{content:"";position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s}
+.switch input:checked+span{background:var(--blue)}
+.switch input:checked+span:before{transform:translateX(20px)}
+
+@media(max-width:760px){
+  .gift-grid{grid-template-columns:repeat(2,1fr)}
+  .order{grid-template-columns:60px 1fr}
+  .logrow{grid-template-columns:1fr;gap:3px}
+}
+
+/* ===================== VIVOX V5 · AKORDEON SIDEBAR ===================== */
+.v3-nav .nav-group-wrap{margin-top:6px;border-top:1px solid var(--border);padding-top:6px}
+.v3-nav .nav-group-wrap:first-of-type{border-top:0;padding-top:0;margin-top:0}
+.nav-group-head{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:11px 12px;border-radius:11px;background:transparent;color:var(--navy);
+  font-weight:800;font-size:13px;letter-spacing:.02em;text-align:left;cursor:pointer;
+  transition:background .15s
+}
+.nav-group-head:hover{background:var(--light)}
+.nav-group-head .chev{
+  font-size:11px;color:var(--muted);transition:transform .2s;display:inline-block
+}
+.nav-group-wrap.open .nav-group-head{background:var(--blue2);color:var(--blue)}
+.nav-group-wrap.open .nav-group-head .chev{transform:rotate(90deg);color:var(--blue)}
+.nav-group-body{
+  display:none;flex-direction:column;gap:3px;
+  padding:4px 0 4px 8px;margin-left:6px;border-left:2px solid var(--border)
+}
+.nav-group-wrap.open .nav-group-body{display:flex}
+.nav-group-body button{
+  padding:9px 12px !important;font-size:13px;border-radius:9px;color:#475569
+}
+.nav-group-body button:hover{background:var(--light);color:var(--navy)}
+.nav-group-body button.active{background:var(--blue2);color:var(--blue);font-weight:700}
+@media(max-width:1100px){
+  .v3-nav .nav-group-head{justify-content:center;padding:11px 6px}
+  .v3-nav .nav-group-head span:first-child{display:none}
+  .v3-nav .nav-group-head .chev{display:none}
+  .nav-group-body{padding-left:0;margin-left:0;border-left:0}
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="logo">VIV<span style="color:#2563eb">O</span>X</div>
+  <input id="globalSearch" class="search" placeholder="Vivox'ta ara: kişi, konu, kod, ürün..." oninput="searchVivox(this.value)">
+  <button class="icon-btn" onclick="openModal('messagesModal')">💬</button>
+  <button class="icon-btn" onclick="openModal('notificationsModal')">🔔</button>
+  <button class="icon-btn" onclick="openModal('walletModal')">₺</button>
+  <button class="avatar" onclick="showPage('profile')">B</button>
+</header>
+
+<div class="v3-grid">
+  <aside class="v3-sidebar">
+    <div class="v3-nav">
+
+      <!-- Sabit ana menü -->
+      <button class="active" onclick="showPage('home')">🏠 Ana Sayfa</button>
+      <button onclick="showPage('explore')">🔎 Keşfet</button>
+      <button onclick="showPage('videox')">🎬 Videox</button>
+      <button onclick="showPage('visual')">🖼️ Görselix</button>
+      <button onclick="showPage('community')">💻 Web Topluluk</button>
+      <button onclick="showPage('live')">🔴 Canlı</button>
+      <button onclick="showPage('messages')">💬 Mesajlar</button>
+      <button onclick="showPage('market')">🛒 Mağaza</button>
+      <button onclick="showPage('developer')">👨‍💻 Developer</button>
+      <button onclick="showPage('ai')">✨ AI Studio</button>
+      <button onclick="showPage('trends')">📈 Trend Radar</button>
+      <button onclick="showPage('circles')">⭕ Circles</button>
+      <button onclick="showPage('creator')">🎨 Creator</button>
+
+      <!-- PARA & EKONOMİ -->
+      <div class="nav-group-wrap" data-group="money">
+        <button class="nav-group-head" onclick="toggleNavGroup(this)">
+          <span>💰 Para & Ekonomi</span><span class="chev">▶</span>
+        </button>
+        <div class="nav-group-body">
+          <button onclick="showPage('ads')">📣 Vivox Ads</button>
+          <button onclick="showPage('subs')">⭐ Abonelikler</button>
+          <button onclick="showPage('tips')">🎁 Bağış & Bahşiş</button>
+          <button onclick="showPage('pay')">💳 Vivox Pay</button>
+        </div>
+      </div>
+
+      <!-- ETKİLEŞİM -->
+      <div class="nav-group-wrap" data-group="social">
+        <button class="nav-group-head" onclick="toggleNavGroup(this)">
+          <span>💬 Etkileşim</span><span class="chev">▶</span>
+        </button>
+        <div class="nav-group-body">
+          <button onclick="showPage('events')">📅 Etkinlikler</button>
+          <button onclick="showPage('polls')">📊 Anket & Quiz</button>
+          <button onclick="showPage('game')">🏆 Oyunlaştırma</button>
+          <button onclick="showPage('spaces')">🎙️ Sesli Odalar</button>
+          <button onclick="showPage('forum')">💬 Forum</button>
+          <button onclick="showPage('bounties')">🎯 Bounties</button>
+          <button onclick="showPage('collections')">📚 Koleksiyonlar</button>
+          <button onclick="showPage('campus')">🏫 Kampüs</button>
+        </div>
+      </div>
+
+      <!-- DEVELOPER -->
+      <div class="nav-group-wrap" data-group="dev">
+        <button class="nav-group-head" onclick="toggleNavGroup(this)">
+          <span>👨‍💻 Developer</span><span class="chev">▶</span>
+        </button>
+        <div class="nav-group-body">
+          <button onclick="showPage('playground')">⚡ Code Playground</button>
+          <button onclick="showPage('repo')">📦 Repo / Snippet</button>
+          <button onclick="showPage('webhooks')">🔔 Webhooks</button>
+        </div>
+      </div>
+
+      <!-- MAĞAZA YÖNETİMİ -->
+      <div class="nav-group-wrap" data-group="store">
+        <button class="nav-group-head" onclick="toggleNavGroup(this)">
+          <span>🛒 Mağaza Yönetimi</span><span class="chev">▶</span>
+        </button>
+        <div class="nav-group-body">
+          <button onclick="showPage('orders')">📋 Siparişler</button>
+          <button onclick="showPage('licensing')">📜 Lisanslama</button>
+          <button onclick="showPage('digital')">⬇️ Dijital Teslim</button>
+          <button onclick="showPage('variants')">🎨 Stok & Varyant</button>
+          <button onclick="showPage('physical')">📦 Fiziksel Ürün</button>
+          <button onclick="showPage('seller')">🏪 Satıcı Paneli</button>
+          <button onclick="showPage('reviews')">⭐ İnceleme & Puan</button>
+          <button onclick="showPage('shipping')">🚚 Kargo</button>
+          <button onclick="showPage('returns')">↩️ İade Merkezi</button>
+          <button onclick="showPage('bundle')">🎁 Bundle</button>
+        </div>
+      </div>
+
+      <!-- GÜVENLİK -->
+      <div class="nav-group-wrap" data-group="security">
+        <button class="nav-group-head" onclick="toggleNavGroup(this)">
+          <span>🛡️ Güvenlik</span><span class="chev">▶</span>
+        </button>
+        <div class="nav-group-body">
+          <button onclick="showPage('safety')">🛡️ Trust & Safety</button>
+          <button onclick="showPage('appeal')">⚖️ İtiraz</button>
+          <button onclick="showPage('age')">🔞 Yaş Doğrulama</button>
+          <button onclick="showPage('kyc')">🪪 KYC</button>
+          <button onclick="showPage('twofa')">🔐 2FA / Passkey</button>
+          <button onclick="showPage('sessions')">💻 Oturumlar</button>
+          <button onclick="showPage('data')">📁 Veri İndir / Sil</button>
+          <button onclick="showPage('audit')">📜 Audit Log</button>
+          <button onclick="showPage('ratelimit')">⏱️ Rate Limit</button>
+          <button onclick="showPage('e2ee')">🔒 E2EE DM</button>
+          <button onclick="showPage('block')">🚫 Engelleme</button>
+        </div>
+      </div>
+
+      <!-- HESAP -->
+      <div class="nav-group-wrap" data-group="account">
+        <button class="nav-group-head" onclick="toggleNavGroup(this)">
+          <span>👤 Hesap</span><span class="chev">▶</span>
+        </button>
+        <div class="nav-group-body">
+          <button onclick="showPage('passport')">🪪 Vivox Passport</button>
+          <button onclick="showPage('settings')">⚙️ Ayarlar</button>
+        </div>
+      </div>
+
+    </div>
+
+    <hr style="margin:14px 0;border:0;border-top:1px solid var(--border)">
+    <div class="muted">FP Bakiye</div><div style="font-size:23px;font-weight:900;margin:4px 0 10px">2,840 FP</div>
+    <div class="muted">Seviye 12 · Creator</div>
+    <div style="margin-top:10px"><span class="badge">⚡ 18 gün seri</span></div>
+  </aside>
+
+  <main class="v3-main">
+    <section id="page-home" class="page">
+      <div class="v3-hero">
+        <span class="badge">VIVOX ECOSYSTEM</span>
+        <h1>Bağlan. Üret. Geliştir. Kazan.</h1>
+        <p>Sosyal ağ, creator ekonomisi, developer topluluğu, mağaza ve kendi AI modellerini bağlayabildiğin tek bir ekosistem.</p>
+        <div style="margin-top:15px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn light" onclick="showPage('ai')">✨ AI Hub'ı Aç</button>
+          <button class="btn orange" onclick="showPage('market')">🛒 Mağazayı Keşfet</button>
+        </div>
+      </div>
+
+      <div class="v3-section-title"><h2>Hikâyeler</h2><span class="muted">Yeni içerikler</span></div>
+      <div class="stories">
+        <div class="story-card"><div class="story-avatar">+</div><b>Hikâye ekle</b></div>
+        <div class="story-card"><div class="story-avatar">A</div><b>Ahmet</b></div>
+        <div class="story-card"><div class="story-avatar">D</div><b>Deniz</b></div>
+        <div class="story-card"><div class="story-avatar">S</div><b>Selin</b></div>
+        <div class="story-card"><div class="story-avatar">K</div><b>Kaan</b></div>
+      </div>
+
+      <div class="v3-section-title"><h2>Gönderi oluştur</h2></div>
+      <div class="composer">
+        <textarea id="postText" placeholder="Ne paylaşmak istiyorsun? İstersen AI ile oluştur..."></textarea>
+        <div class="composer-row">
+          <div class="chips"><span class="chip">📷 Fotoğraf</span><span class="chip">🎬 Video</span><span class="chip">💻 Kod</span><span class="chip">📊 Anket</span></div>
+          <button class="btn" onclick="publishPost()">Paylaş</button>
+        </div>
+      </div>
+
+      <div id="feed">
+        <article class="post">
+          <div class="post-head"><div class="avatar">B</div><div><b>Bora</b> <span class="badge">Developer</span><div class="muted">@bora · 12 dk</div></div></div>
+          <div class="post-body"><b>Web uygulamalarında güvenlik neden tasarımın bir parçası olmalı?</b><p style="margin-top:8px">XSS, CSRF, rate limit, güvenli session yönetimi ve audit log sadece sonradan eklenen özellikler olmamalı.</p><div class="chips" style="margin-top:10px"><span class="chip">#CyberSecurity</span><span class="chip">#WebDevelopment</span></div></div>
+          <div class="post-actions"><button onclick="like(this)">♡ 128</button><button>💬 24</button><button>↗ Paylaş</button><button onclick="fp(this)">⭐ FP +10</button><button>🔖</button></div>
+        </article>
+        <article class="post">
+          <div class="post-head"><div class="avatar">D</div><div><b>Deniz AI</b> <span class="badge">AI Creator</span><div class="muted">@denizai · 31 dk</div></div></div>
+          <div class="post-body"><b>Bugün 3 farklı AI ile aynı kodu karşılaştırdım.</b><p style="margin-top:8px">Vivox AI Hub sayesinde modelleri tek ekranda test etmek çok daha pratik.</p></div>
+          <div class="post-actions"><button onclick="like(this)">♡ 94</button><button>💬 17</button><button>↗ Paylaş</button><button onclick="fp(this)">⭐ FP +10</button></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="page-explore" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Keşfet</h2></div>
+      <div class="grid3">
+        <div class="feature-card"><div class="feature-icon">🔥</div><h3>Popüler</h3><p class="muted">Yükselen içerikler ve creator'lar.</p></div>
+        <div class="feature-card"><div class="feature-icon">💻</div><h3>Developer</h3><p class="muted">Kod, araçlar ve teknik topluluklar.</p></div>
+        <div class="feature-card"><div class="feature-icon">🎨</div><h3>Creator</h3><p class="muted">Yeni üreticileri keşfet.</p></div>
+        <div class="feature-card"><div class="feature-icon">🛒</div><h3>Dijital Ürünler</h3><p class="muted">Şablon, kod, prompt ve kaynaklar.</p></div>
+        <div class="feature-card"><div class="feature-icon">🔴</div><h3>Canlı</h3><p class="muted">Şu anda yayın yapanlar.</p></div>
+        <div class="feature-card"><div class="feature-icon">🤖</div><h3>AI</h3><p class="muted">AI araçları ve toplulukları.</p></div>
+      </div>
+    </section>
+
+    <section id="page-videox" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Videox</h2><button class="btn">+ Video</button></div>
+      <div class="grid2">
+        <div class="video-card"><b>10 Web Güvenliği Hatası</b><span>▶ 18.4K · ♥ 1.2K</span></div>
+        <div class="video-card"><b>3 AI ile Kod Karşılaştırması</b><span>▶ 9.8K · ♥ 740</span></div>
+        <div class="video-card"><b>Python ile Mini Otomasyon</b><span>▶ 7.2K · ♥ 510</span></div>
+        <div class="video-card"><b>Bir Developer'ın Günlük Workflow'u</b><span>▶ 5.1K · ♥ 388</span></div>
+      </div>
+    </section>
+
+    <section id="page-visual" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Görselix</h2></div>
+      <div class="grid3">
+        <div class="visual-card">🎨</div><div class="visual-card">🌌</div><div class="visual-card">💻</div>
+        <div class="visual-card">📱</div><div class="visual-card">🧠</div><div class="visual-card">🚀</div>
+      </div>
+    </section>
+
+    <section id="page-community" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">PROGRAMMING ONLY</span><h1>Web Topluluk</h1><p>Geliştiricilerin kod paylaştığı, çalıştırdığı, incelediği ve tartıştığı alan.</p></div>
+      <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">PHP</span><span class="chip">Python</span><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">SQL</span><span class="chip">Cyber Security</span><span class="chip">DevOps</span><span class="chip">AI</span></div>
+      <article class="post"><div class="post-head"><div class="avatar">K</div><div><b>Kaan</b><div class="muted">Python · 1 saat</div></div></div><div class="post-body"><b>Python'da güvenli API rate limiter örneği</b><pre style="margin-top:10px;background:#0f172a;color:#e2e8f0;padding:14px;border-radius:12px;overflow:auto">def allow_request(user_id, limit=60):\n    # demo implementation\n    return True</pre></div><div class="post-actions"><button>▶ Run Code</button><button>📋 Copy</button><button>🔖 Save</button><button>⭐ FP +20</button><button>💬 Discuss</button></div></article>
+    </section>
+
+    <section id="page-live" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Canlı</h2><button class="btn">🔴 Yayın Başlat</button></div>
+      <div class="grid2"><div class="video-card"><b>Live: Full Stack Proje Geliştiriyorum</b><span>● 428 izleyici · Anket · Soru-Cevap</span></div><div class="video-card"><b>Live: AI Coding Session</b><span>● 196 izleyici · Hediye · Sohbet</span></div></div>
+      <div class="notice" style="margin-top:12px">Canlı yayınlarda sohbet moderasyonu, raporlama, engelleme, hediye ve abonelik özellikleri desteklenebilir.</div>
+    </section>
+
+    <section id="page-messages" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Mesajlar</h2><button class="btn">+ Grup</button></div>
+      <div class="grid2"><div class="feature-card"><h3>Ahmet</h3><p class="muted">Dosya gönderildi · 2 dk</p><div class="chips"><span class="chip">Yanıtla</span><span class="chip">📌 Sabitle</span><span class="chip">🔕 Sessize al</span></div></div><div class="feature-card"><h3>Developer Team</h3><p class="muted">12 kişi · Son mesaj 5 dk</p><div class="chips"><span class="chip">Dosyalar</span><span class="chip">Anket</span><span class="chip">📌</span></div></div></div>
+      <div class="post" style="margin-top:12px"><b>Mesaj özellikleri</b><p class="muted" style="margin-top:7px">1:1 ve grup sohbeti · sesli mesaj · dosya · GIF · yanıtla · düzenle/sil · kaybolan mesaj · okundu bilgisi · arama · engelle/sessize al.</p></div>
+    </section>
+
+    <section id="page-market" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Vivox Mağaza</h2><button class="btn">Ürün Sat</button></div>
+      <div class="grid3">
+        <div class="market-card"><div class="market-thumb">💻</div><h3>PHP Admin Kit</h3><p class="muted">₺799 · 4.9 ★</p><button class="btn" style="margin-top:10px">İncele</button></div>
+        <div class="market-card"><div class="market-thumb">🎨</div><h3>UI Kit Pro</h3><p class="muted">₺499 · 4.8 ★</p><button class="btn" style="margin-top:10px">İncele</button></div>
+        <div class="market-card"><div class="market-thumb">🧠</div><h3>AI Prompt Pack</h3><p class="muted">₺249 · 4.7 ★</p><button class="btn" style="margin-top:10px">İncele</button></div>
+      </div>
+      <div class="v3-section-title"><h2>Creator / Developer Marketplace</h2></div>
+      <p class="muted">Kod, template, plugin, otomasyon, prompt, e-kitap, ikon, preset, eğitim ve diğer dijital ürünler.</p>
+    </section>
+
+    <section id="page-developer" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">DEVELOPER CENTER</span><h1>Build on Vivox</h1><p>Mini Apps, botlar, AI araçları, API entegrasyonları ve geliştirici profili.</p></div>
+      <div class="grid3">
+        <div class="feature-card"><div class="feature-icon">🧩</div><h3>Mini Apps</h3><p class="muted">Anket, quiz, hesaplayıcı, oyun, kod editörü ve topluluk araçları.</p></div>
+        <div class="feature-card"><div class="feature-icon">🤖</div><h3>Bot Marketplace</h3><p class="muted">Planlı paylaşım, AI caption ve otomatik yanıt botları.</p></div>
+        <div class="feature-card"><div class="feature-icon">🔌</div><h3>API</h3><p class="muted">Uygulamalarını Vivox ekosistemine bağla.</p></div>
+      </div>
+    </section>
+
+    <section id="page-ai" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">BRING YOUR OWN AI · BYOAI</span><h1>Vivox AI Hub</h1><p>İstediğin AI API'sini bağla. Aynı anda 3 AI kullan, karşılaştır, bir modeli Judge olarak seç veya görev bazlı yönlendirme yap.</p></div>
+      <div class="ai-hub">
+        <h2>AI Connections · 3 Slot</h2>
+        <p class="muted">OpenAI-compatible veya özel API endpoint'leri dahil.</p>
+        <div class="ai-slots">
+          <div class="ai-slot"><b>AI #1</b><div class="status">● Bağlı</div><input value="My General AI" placeholder="AI adı"><select><option>OpenAI-compatible</option><option>Custom API</option><option>OpenRouter</option><option>Groq</option><option>Qwen</option><option>Anthropic</option></select><input type="password" value="••••••••••••" placeholder="API Key"><input value="https://api.example.com/v1" placeholder="API URL"><button class="btn" style="margin-top:8px">Test Et</button></div>
+          <div class="ai-slot"><b>AI #2</b><div class="status">● Bağlı</div><input value="Coding AI" placeholder="AI adı"><select><option>OpenAI-compatible</option><option>Custom API</option><option>OpenRouter</option><option>Groq</option><option>Qwen</option></select><input type="password" value="••••••••••••" placeholder="API Key"><input value="https://api.example.com/v1" placeholder="API URL"><button class="btn" style="margin-top:8px">Test Et</button></div>
+          <div class="ai-slot"><b>AI #3</b><div class="status">● Bağlı</div><input value="Company AI" placeholder="AI adı"><select><option>Custom API</option><option>OpenAI-compatible</option><option>OpenRouter</option><option>Groq</option><option>Qwen</option></select><input type="password" value="••••••••••••" placeholder="API Key"><input value="https://ai.company.local/v1" placeholder="API URL"><button class="btn" style="margin-top:8px">Test Et</button></div>
+        </div>
+      </div>
+      <div class="ai-chat">
+        <div class="ai-list"><b>AI Modes</b><button class="active" onclick="setAIMode(this,'Tek AI')">Tek AI</button><button onclick="setAIMode(this,'Compare')">⚖️ Compare</button><button onclick="setAIMode(this,'AI Council')">👥 AI Council</button><button onclick="setAIMode(this,'Router')">🧭 AI Router</button><button onclick="setAIMode(this,'Judge')">🏆 Judge</button></div>
+        <div class="ai-output"><b id="aiModeTitle">Tek AI</b><textarea id="aiPrompt" style="width:100%;min-height:80px;margin:12px 0;padding:10px;border:1px solid var(--border);border-radius:10px" placeholder="AI'lara ne sormak istiyorsun?"></textarea><button class="btn" onclick="runAI()">Çalıştır</button><div id="aiResult" style="margin-top:14px;color:var(--muted)">Sonuç burada görünecek.</div></div>
+      </div>
+      <div class="notice" style="margin-top:12px">Güvenlik: API anahtarları gerçek uygulamada frontend HTML/JS içine gömülmemeli; backend tarafında şifrelenmiş credential storage, erişim kontrolü, rate limit ve audit log kullanılmalı.</div>
+    </section>
+
+    <section id="page-trends" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Trend Radar</h2><span class="muted">Rising topics</span></div>
+      <div class="list">
+        <div class="list-item"><span>1 · AI Coding</span><span class="trend-score">+82%</span></div><div class="list-item"><span>2 · Cyber Security</span><span class="trend-score">+67%</span></div><div class="list-item"><span>3 · React</span><span class="trend-score">+54%</span></div><div class="list-item"><span>4 · Indie Hacker</span><span class="trend-score">+43%</span></div><div class="list-item"><span>5 · AI Agents</span><span class="trend-score">+39%</span></div>
+      </div>
+      <div class="post" style="margin-top:12px"><b>Trend Score nasıl çalışır?</b><p class="muted">Tazelik + etkileşim ivmesi + konu ilgisi + creator güveni + çeşitlilik − spam/bot/negatif geri bildirim.</p></div>
+    </section>
+
+    <section id="page-circles" class="page" style="display:none">
+      <div class="v3-hero"><h1>Circles</h1><p>İçeriğini kimlerin görebileceğini sen belirle.</p></div>
+      <div class="grid3"><div class="feature-card"><h3>Yakın Arkadaşlar</h3><p class="muted">12 kişi</p><button class="btn">Yönet</button></div><div class="feature-card"><h3>Developer Ekibi</h3><p class="muted">38 kişi</p><button class="btn">Yönet</button></div><div class="feature-card"><h3>Özel Proje</h3><p class="muted">7 kişi</p><button class="btn">Yönet</button></div></div>
+      <div class="notice" style="margin-top:12px">Ghost Mode, Private Activity, içerik bazlı görünürlük, mesaj izinleri ve engelleme kontrolleri.</div>
+    </section>
+
+    <section id="page-creator" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Creator Studio</h2><button class="btn">Yeni İçerik</button></div>
+      <div class="grid3"><div class="kpi"><span class="muted">Takipçi</span><b>18.4K</b><span class="muted">+12.8%</span></div><div class="kpi"><span class="muted">Erişim</span><b>428K</b><span class="muted">Son 30 gün</span></div><div class="kpi"><span class="muted">Gelir</span><b>₺24.8K</b><span class="muted">Bu ay</span></div></div>
+      <div class="v3-section-title"><h2>Creator → Brand</h2></div><div class="grid2"><div class="feature-card"><h3>Teknoloji kampanyası</h3><p class="muted">Başvuru · teslim · onay · revizyon · ödeme</p><button class="btn">Kampanyaları Gör</button></div><div class="feature-card"><h3>Marka işbirliği</h3><p class="muted">Creator profilinle teklif al.</p><button class="btn">Profilimi Aç</button></div></div>
+    </section>
+
+    <section id="page-ads" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">AD MANAGER</span><h1>Vivox Ads</h1><p>Creator ve developer'lar için self-servis reklam yöneticisi. Hedef kitle, bütçe, CPC/CPM ve A/B test tek panelde.</p></div>
+      <div class="grid3">
+        <div class="kpi"><span class="muted">Harcama (bu ay)</span><b>₺12.480</b><span class="up">+18.2%</span></div>
+        <div class="kpi"><span class="muted">Gösterim</span><b>482K</b><span class="up">+24%</span></div>
+        <div class="kpi"><span class="muted">CPC ort.</span><b>₺0.84</b><span class="up">-6%</span></div>
+      </div>
+      <div class="v3-section-title"><h2>Aktif Kampanyalar</h2><button class="btn" onclick="openModal('campaignModal')">+ Kampanya</button></div>
+      <div class="campaign"><div class="campaign-head"><b>Creator Boost — Q3</b><span class="badge">● Yayında</span></div><div class="budget-bar"><i style="width:68%"></i></div><div class="muted">₺6.800 / ₺10.000 · 4 gün kaldı</div><div class="audience-chips"><span class="chip">TR · 18-34</span><span class="chip">Developer</span><span class="chip">İlgi: AI</span></div></div>
+      <div class="campaign"><div class="campaign-head"><b>Vivox Store Retarget</b><span class="badge">⏸ Duraklatıldı</span></div><div class="budget-bar"><i style="width:34%"></i></div><div class="muted">₺3.400 / ₺10.000</div></div>
+      <div class="v3-section-title"><h2>A/B Test</h2></div>
+      <div class="grid2">
+        <div class="feature-card"><b>Varyant A</b><p class="muted">CTR 2.4% · 12.4K tık</p></div>
+        <div class="feature-card"><b>Varyant B</b><p class="muted">CTR 3.1% · 15.8K tık</p><span class="badge">🏆 Kazanan</span></div>
+      </div>
+      <div class="notice" style="margin-top:12px">Gerçek sürümde: advertiser identity doğrulaması, politika taraması (yasaklı kategori), bütçe servis tarafında kilitleme, fraud/bot trafik filtresi ve şeffaf raporlama zorunludur.</div>
+    </section>
+
+    <section id="page-subs" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">SUBSCRIPTIONS</span><h1>Creator Abonelikleri</h1><p>Tier bazlı abonelik, özel içerik kilidi ve üye rozeti.</p></div>
+      <div class="grid3">
+        <div class="tier"><h3>Başlangıç</h3><div class="price">₺49<span style="font-size:13px;color:#64748b">/ay</span></div><ul><li>✓ Özel post'lar</li><li>✓ Üye rozeti</li><li>✓ Erken erişim</li></ul><button class="btn" style="width:100%" onclick="toast('Abone olundu')">Abone Ol</button></div>
+        <div class="tier featured"><span class="badge" style="position:absolute;top:-10px;left:50%;transform:translateX(-50%)">🔥 Popüler</span><h3>Pro</h3><div class="price">₺99<span style="font-size:13px;color:#64748b">/ay</span></div><ul><li>✓ Başlangıç paketi</li><li>✓ Aylık 1:1 görüşme</li><li>✓ Kaynak dosyalar</li><li>✓ Öncelikli DM</li></ul><button class="btn" style="width:100%" onclick="toast('Abone olundu')">Abone Ol</button></div>
+        <div class="tier"><h3>Studio</h3><div class="price">₺199<span style="font-size:13px;color:#64748b">/ay</span></div><ul><li>✓ Pro paketi</li><li>✓ Canlı atölyeler</li><li>✓ Ticari lisans</li><li>✓ Rozet + doğrulama</li></ul><button class="btn" style="width:100%" onclick="toast('Abone olundu')">Abone Ol</button></div>
+      </div>
+      <div class="v3-section-title"><h2>Özel İçerik Kilidi</h2></div>
+      <div class="feature-card"><b>🔒 Sadece Pro+ üyeler görebilir</b><p class="muted">Abone olmayan kullanıcıya önizleme + abone ol CTA'sı gösterilir.</p></div>
+    </section>
+
+    <section id="page-tips" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">TIPS & GIFTS</span><h1>Bağış & Bahşiş</h1><p>Post altına "kahve ısmarla", canlı yayında hediye gönder, FP → ₺ dönüşümü.</p></div>
+      <div class="v3-section-title"><h2>Hediye Gönder</h2><span class="muted">Bakiye: 2,840 FP</span></div>
+      <div class="gift-grid">
+        <div class="gift" onclick="sendGift(this,'☕',10)"><div class="emoji">☕</div><b>Kahve</b><small>10 FP</small></div>
+        <div class="gift" onclick="sendGift(this,'🎂',25)"><div class="emoji">🎂</div><b>Pasta</b><small>25 FP</small></div>
+        <div class="gift" onclick="sendGift(this,'🚀',50)"><div class="emoji">🚀</div><b>Roket</b><small>50 FP</small></div>
+        <div class="gift" onclick="sendGift(this,'💎',100)"><div class="emoji">💎</div><b>Elmas</b><small>100 FP</small></div>
+        <div class="gift" onclick="sendGift(this,'👑',250)"><div class="emoji">👑</div><b>Taç</b><small>250 FP</small></div>
+        <div class="gift" onclick="sendGift(this,'🏆',500)"><div class="emoji">🏆</div><b>Kupa</b><small>500 FP</small></div>
+        <div class="gift" onclick="sendGift(this,'🌟',1000)"><div class="emoji">🌟</div><b>Süperstar</b><small>1000 FP</small></div>
+        <div class="gift" onclick="sendGift(this,'💌',5)"><div class="emoji">💌</div><b>Not</b><small>5 FP</small></div>
+      </div>
+      <div class="v3-section-title"><h2>FP → ₺ Dönüşüm</h2></div>
+      <div class="grid2"><div class="feature-card"><b>1.000 FP = ₺75</b><p class="muted">Creator gelirine aktarılır (2 iş günü).</p></div><div class="feature-card"><b>Minimum çekim: ₺100</b><p class="muted">KYC doğrulaması zorunlu.</p></div></div>
+    </section>
+
+    <section id="page-pay" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">PAYMENTS</span><h1>Vivox Pay</h1><p>QR ile ödeme, fatura, işlem geçmişi, iade akışı ve çoklu para birimi.</p></div>
+      <div class="grid2" style="align-items:center">
+        <div class="feature-card" style="text-align:center"><div class="qr"></div><p class="muted" style="margin-top:10px">@bora · ₺ almaya hazır</p><button class="btn" style="margin-top:10px">QR Yenile</button></div>
+        <div class="feature-card"><h3>Bakiye</h3><div class="kpi" style="border:0;padding:0"><b>₺1.250</b></div><div class="chips" style="margin-top:10px"><span class="chip" onclick="toast('Para ekleme akışı')">Para Ekle</span><span class="chip" onclick="toast('Çekim talebi oluşturuldu')">Çekim</span><span class="chip" onclick="toast('TRY / USD / EUR aktif')">TRY / USD / EUR</span></div><div class="notice" style="margin-top:12px">KYC doğrulanmadan para çekimi kapalıdır.</div></div>
+      </div>
+      <div class="v3-section-title"><h2>İşlemler</h2><button class="chip" onclick="toast('CSV indirildi')">CSV</button></div>
+      <div class="card" style="padding:14px">
+        <div class="tx"><span>⬇️</span><div class="grow"><b>Mağaza satışı</b><div class="muted">@kaan · 2 saat</div></div><span class="amt" style="color:#15803d">+₺499</span></div>
+        <div class="tx"><span>🎁</span><div class="grow"><b>Bahşiş</b><div class="muted">@deniz · 5 saat</div></div><span class="amt" style="color:#15803d">+₺75</span></div>
+        <div class="tx"><span>💳</span><div class="grow"><b>Abonelik ödemesi</b><div class="muted">Studio · Dün</div></div><span class="amt" style="color:#b91c1c">-₺199</span></div>
+        <div class="tx"><span>↩️</span><div class="grow"><b>İade</b><div class="muted">Sipariş #4821 · 2 gün</div></div><span class="amt" style="color:#b91c1c">-₺89</span></div>
+      </div>
+    </section>
+
+    <section id="page-events" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">EVENTS</span><h1>Etkinlikler</h1><p>Etkinlik oluştur, RSVP topla, canlı yayına bağla.</p><button class="btn light" style="margin-top:12px" onclick="openModal('eventModal')">+ Etkinlik Oluştur</button></div>
+      <div class="event-card"><div class="event-date">24<small>EYL</small></div><div class="event-info"><b>Full Stack Bootcamp Kickoff</b><p class="muted">20:00 · Online · 148 katılımcı</p><div class="chips" style="margin-top:8px"><span class="chip">RSVP</span><span class="chip">🔔 Hatırlat</span><span class="chip">📅 Takvim</span></div></div><button class="btn" onclick="toast('Katıldınız')">Katıl</button></div>
+      <div class="event-card"><div class="event-date">02<small>EKİ</small></div><div class="event-info"><b>AI Agents Workshop</b><p class="muted">19:30 · Canlı · 62 katılımcı</p></div><button class="btn" onclick="toast('Katıldınız')">Katıl</button></div>
+    </section>
+
+    <section id="page-polls" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">POLLS & QUIZ</span><h1>Anket & Quiz</h1><p>Post içi anket, canlı yayın quiz'i, doğru cevaba FP ödülü.</p></div>
+      <div class="v3-section-title"><h2>Örnek Anket</h2></div>
+      <div class="card" style="padding:16px">
+        <b>Hangi stack ile geliştirmeyi tercih edersiniz?</b>
+        <div style="margin-top:12px" id="pollBox">
+          <div class="poll-option" onclick="votePoll(this,42)"><i></i><span><span>React + Node</span><span>42%</span></span></div>
+          <div class="poll-option" onclick="votePoll(this,31)"><i></i><span><span>Vue + Laravel</span><span>31%</span></span></div>
+          <div class="poll-option" onclick="votePoll(this,18)"><i></i><span><span>Svelte + Go</span><span>18%</span></span></div>
+          <div class="poll-option" onclick="votePoll(this,9)"><i></i><span><span>Diğer</span><span>9%</span></span></div>
+        </div>
+        <p class="muted" style="margin-top:10px">Toplam 1.248 oy · 3 gün kaldı</p>
+      </div>
+      <div class="v3-section-title"><h2>Quiz (Canlı Yayın)</h2></div>
+      <div class="feature-card"><b>Soru 3/10</b><p class="muted">HTTP 401 ne anlama gelir?</p><div class="chips" style="margin-top:10px"><span class="chip" onclick="toast('Yanlış ❌')">A) Not Found</span><span class="chip" onclick="toast('Doğru ✅ +25 FP')">B) Unauthorized</span><span class="chip" onclick="toast('Yanlış ❌')">C) Server Error</span></div></div>
+    </section>
+
+    <section id="page-game" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">GAMIFICATION</span><h1>Oyunlaştırma</h1><p>Görev zinciri, seviye atlama, XP/FP ayrımı ve liderlik tablosu.</p></div>
+      <div class="grid3">
+        <div class="kpi"><span class="muted">Seviye</span><b>12</b><span class="muted">Creator</span></div>
+        <div class="kpi"><span class="muted">XP</span><b>8.420</b><span class="muted">→ Sv.13: 1.580 XP</span></div>
+        <div class="kpi"><span class="muted">FP</span><b>2.840</b><span class="muted">Harcanabilir</span></div>
+      </div>
+      <div class="v3-section-title"><h2>Günlük Görevler</h2></div>
+      <div class="mission done"><span>✅</span><span class="grow">3 içerikle etkileşime gir</span><span class="badge">+50 FP</span></div>
+      <div class="mission"><span>⏳</span><span class="grow">1 gönderi paylaş</span><span class="badge">+30 FP</span></div>
+      <div class="mission"><span>⏳</span><span class="grow">Bir yoruma cevap ver</span><span class="badge">+20 FP</span></div>
+      <div class="v3-section-title"><h2>Liderlik Tablosu (Bu Hafta)</h2></div>
+      <div class="card" style="padding:8px 14px">
+        <div class="leader-row"><span class="rank gold">1</span><b>Deniz AI</b><span class="muted" style="margin-left:auto">4.820 FP</span></div>
+        <div class="leader-row"><span class="rank silver">2</span><b>Kaan Dev</b><span class="muted" style="margin-left:auto">3.940 FP</span></div>
+        <div class="leader-row"><span class="rank bronze">3</span><b>Bora</b><span class="muted" style="margin-left:auto">2.840 FP</span></div>
+        <div class="leader-row"><span class="rank">4</span><b>Selin</b><span class="muted" style="margin-left:auto">2.110 FP</span></div>
+      </div>
+    </section>
+
+    <section id="page-spaces" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">LIVE AUDIO</span><h1>Sesli Odalar</h1><p>Twitter Spaces tarzı canlı sesli sohbet. Konuşmacı / dinleyici rolleri.</p><button class="btn light" style="margin-top:12px" onclick="toast('Oda başlatıldı')">🎙️ Oda Başlat</button></div>
+      <div class="feature-card">
+        <b>🔴 AI & Kod · Canlı</b><p class="muted">128 dinleyici · 4 konuşmacı</p>
+        <div class="space-stage" style="margin-top:12px">
+          <div class="space-seat talking">B</div><div class="space-seat">D</div><div class="space-seat">K</div><div class="space-seat">+</div>
+        </div>
+        <div class="chips" style="margin-top:12px"><span class="chip">✋ Söz İste</span><span class="chip">🎧 Sessiz Dinle</span><span class="chip">❤️ Tepki</span><span class="chip">🚫 Rapor</span></div>
+      </div>
+    </section>
+
+    <section id="page-forum" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">DISCUSSIONS</span><h1>Forum</h1><p>Konu bazlı thread, kabul edilen cevap ve oy sistemi.</p><button class="btn light" style="margin-top:12px" onclick="openModal('threadModal')">+ Yeni Konu</button></div>
+      <div class="thread"><div class="votes"><button onclick="toast('+1 oy')">▲</button><span>128</span><button onclick="toast('-1 oy')">▼</button></div><div style="flex:1"><b>React 19'da yeni Server Actions nasıl kullanılır?</b><p class="muted" style="margin-top:6px">#react · #javascript · 24 yanıt · 2 saat</p><div class="chips" style="margin-top:8px"><span class="chip">👤 Deniz</span><span class="chip">🏆 Kabul edilen yanıt</span></div></div></div>
+      <div class="thread answer-ok"><div class="votes"><button onclick="toast('+1 oy')">▲</button><span>94</span><button onclick="toast('-1 oy')">▼</button></div><div style="flex:1"><b>Python'da asyncio vs thread hangisi daha hızlı?</b><p class="muted" style="margin-top:6px">#python · 18 yanıt · 5 saat</p></div></div>
+    </section>
+
+    <section id="page-bounties" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">BOUNTIES</span><h1>Vivox Bounties</h1><p>Kod görevi aç, çözene FP/₺ ödül. Otomatik test ile doğrulama.</p><button class="btn light" style="margin-top:12px" onclick="openModal('bountyModal')">+ Bounty Aç</button></div>
+      <div class="bounty"><span class="reward">₺2.500</span><b>WebSocket reconnect mekanizması</b><p class="muted">Node.js + test dosyası zorunlu. Son teslim: 5 gün.</p><div class="chips" style="margin-top:10px"><span class="chip">Node.js</span><span class="chip">Jest</span><span class="chip">14 başvuru</span></div></div>
+      <div class="bounty"><span class="reward">500 FP</span><b>XSS test seti hazırla</b><p class="muted">20 payload + açıklama + öneri.</p><div class="chips" style="margin-top:10px"><span class="chip">Security</span><span class="chip">6 başvuru</span></div></div>
+    </section>
+
+    <section id="page-collections" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Koleksiyonlar</h2><button class="btn">+ Oluştur</button></div>
+      <div class="grid3">
+        <div class="collection"><b>📚 Frontend Kaynakları</b><div class="collection-grid"><div></div><div></div><div></div><div></div><div></div><div></div></div><p class="muted">42 içerik · Herkese açık</p></div>
+        <div class="collection"><b>🤖 AI Prompt Favorileri</b><div class="collection-grid"><div></div><div></div><div></div><div></div><div></div><div></div></div><p class="muted">28 içerik · Sadece ben</p></div>
+        <div class="collection"><b>💻 Kod Snippet'leri</b><div class="collection-grid"><div></div><div></div><div></div><div></div><div></div><div></div></div><p class="muted">16 içerik · Paylaşılabilir</p></div>
+      </div>
+    </section>
+
+    <section id="page-campus" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Kampüs & Topluluk</h2></div>
+      <div class="grid3">
+        <div class="campus"><b>🎓 İTÜ Yazılım</b><span class="muted" style="color:#dbeafe">842 üye · Özel alan</span></div>
+        <div class="campus orange"><b>🏢 Acme Dev Team</b><span class="muted" style="color:#fef3c7">128 üye · Şirket içi</span></div>
+        <div class="campus green"><b>📍 İzmir Geliştiriciler</b><span class="muted" style="color:#dcfce7">2.140 üye · Şehir</span></div>
+      </div>
+    </section>
+
+    <section id="page-playground" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">CODE PLAYGROUND</span><h1>Code Playground</h1><p>Tarayıcı içi HTML/CSS/JS/Python çalıştır, paylaşılabilir link oluştur.</p></div>
+      <div class="run-bar"><select><option>HTML/CSS/JS</option><option>Python</option><option>Node.js</option></select><button class="btn" onclick="toast('Çalıştırıldı')">▶ Çalıştır</button><button class="chip" onclick="toast('Link kopyalandı')">🔗 Paylaş</button><button class="chip" onclick="toast('Kaydedildi')">💾 Kaydet</button></div>
+      <div class="grid2">
+        <div class="code-box">
+          <div><span class="com">// Merhaba Vivox</span></div>
+          <div><span class="kw">const</span> user = <span class="str">"@bora"</span>;</div>
+          <div>console.<span class="kw">log</span>(<span class="str">`Merhaba ${user}`</span>);</div>
+          <div>document.body.innerHTML = <span class="str">"&lt;h1&gt;Merhaba!&lt;/h1&gt;"</span>;</div>
+        </div>
+        <div class="preview"><b>Canlı Önizleme</b><p class="muted" style="margin-top:10px">Kod çalıştırıldığında burada render edilir.</p></div>
+      </div>
+      <div class="notice" style="margin-top:12px">Güvenlik: Sandbox iframe (allow-scripts, no-allow-same-origin), kaynak limiti ve zaman aşımı zorunludur.</div>
+    </section>
+
+    <section id="page-repo" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Repo & Snippet</h2><button class="btn">+ Yeni</button></div>
+      <div class="repo"><div class="repo-head"><b>📦 vivox/auth-kit</b><span class="badge">★ 324</span></div><p class="muted">JWT + refresh rotation + audit log.</p><div class="chips" style="margin-top:8px"><span class="chip">JavaScript</span><span class="chip">v1.4.2</span><span class="chip">🍴 62 fork</span></div></div>
+      <div class="repo"><div class="repo-head"><b>📦 laravel-admin-starter</b><span class="badge">★ 188</span></div><p class="muted">Rol, izin, log ve dashboard hazır.</p><div class="chips" style="margin-top:8px"><span class="chip">PHP</span><span class="chip">v2.0.0</span></div></div>
+    </section>
+
+    <section id="page-webhooks" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">WEBHOOKS</span><h1>Webhooks & Events</h1><p>Developer aboneleri için olay akışı: post.created, order.paid, subscription.renewed...</p><button class="btn light" style="margin-top:12px" onclick="openModal('webhookModal')">+ Endpoint Ekle</button></div>
+      <div class="webhook"><span class="dot-live"></span><b>order.paid</b> → <code>https://api.myapp.com/hooks/vivox</code><div class="muted" style="margin-top:6px">Son: 2 dk önce · 200 OK</div></div>
+      <div class="webhook"><span class="dot-live dot-warn"></span><b>post.created</b> → <code>https://api.myapp.com/hooks/vivox</code><div class="muted" style="margin-top:6px">Son: 12 dk önce · 429 (rate limit)</div></div>
+      <div class="v3-section-title"><h2>Son Olaylar</h2></div>
+      <div class="code-box"><div>[14:02] order.paid         · #4821 · ₺499</div><div>[13:58] subscription.created · @selin · Pro</div><div>[13:44] post.created        · @bora</div></div>
+    </section>
+
+    <section id="page-orders" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Sipariş Yönetimi</h2><input placeholder="Sipariş no, müşteri..." style="max-width:220px;padding:8px 10px;border:1px solid var(--border);border-radius:9px"></div>
+      <div class="card" style="padding:14px">
+        <div class="order"><div class="thumb">💻</div><div><b>#4821 · PHP Admin Kit</b><div class="muted">@kaan · 2 saat önce</div></div><span class="badge ok">Teslim edildi</span></div>
+        <div class="order"><div class="thumb">🎨</div><div><b>#4820 · UI Kit Pro</b><div class="muted">@selin · 4 saat önce</div></div><span class="badge info">Hazırlanıyor</span></div>
+        <div class="order"><div class="thumb">🧠</div><div><b>#4819 · AI Prompt Pack</b><div class="muted">@deniz · Dün</div></div><span class="badge warn">Kargoda</span></div>
+        <div class="order"><div class="thumb">📦</div><div><b>#4818 · Fiziksel Poster</b><div class="muted">@ahmet · 2 gün</div></div><span class="badge danger">İade</span></div>
+      </div>
+    </section>
+
+    <section id="page-licensing" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">LICENSING</span><h1>Lisanslama</h1><p>Tek kullanımlık / çoklu / ticari lisans seçenekleri.</p></div>
+      <div class="grid3">
+        <div class="license"><b>Personal</b><div style="font-size:20px;font-weight:900;color:var(--navy);margin:6px 0">₺249</div><p class="muted">Tek proje, ticari olmayan.</p><button class="btn" style="width:100%;margin-top:10px">Seç</button></div>
+        <div class="license selected"><b>Commercial</b><span class="badge" style="margin-left:6px">Popüler</span><div style="font-size:20px;font-weight:900;color:var(--navy);margin:6px 0">₺749</div><p class="muted">Sınırsız proje, ticari kullanım.</p><button class="btn" style="width:100%;margin-top:10px">Seçili</button></div>
+        <div class="license"><b>Extended</b><div style="font-size:20px;font-weight:900;color:var(--navy);margin:6px 0">₺1.999</div><p class="muted">Yeniden satış + white-label.</p><button class="btn" style="width:100%;margin-top:10px">Seç</button></div>
+      </div>
+    </section>
+
+    <section id="page-digital" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Dijital Teslim</h2></div>
+      <div class="card" style="padding:14px">
+        <div class="order"><div class="thumb">📦</div><div><b>PHP Admin Kit</b><div class="muted">İndirme linki · 72 saat geçerli · 3/5 hak kaldı</div></div><button class="btn" onclick="toast('İndirme başladı')">⬇️ İndir</button></div>
+        <div class="order"><div class="thumb">📄</div><div><b>AI Prompt Pack (PDF)</b><div class="muted">DRM · Cihaz kilitli · 2/3 cihaz</div></div><button class="btn" onclick="toast('İndirme başladı')">⬇️ İndir</button></div>
+      </div>
+      <div class="notice" style="margin-top:12px">Süre sınırı, tek-kullanımlık token ve watermark her indirmede otomatik uygulanır.</div>
+    </section>
+
+    <section id="page-variants" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Stok & Varyant</h2></div>
+      <div class="feature-card">
+        <b>Beden</b>
+        <div class="chips" style="margin-top:8px"><span class="variant active">S</span><span class="variant">M</span><span class="variant">L</span><span class="variant dim">XL (stok yok)</span></div>
+        <b style="display:block;margin-top:14px">Renk</b>
+        <div class="chips" style="margin-top:8px"><span class="variant active">Siyah</span><span class="variant">Beyaz</span><span class="variant">Lacivert</span></div>
+        <b style="display:block;margin-top:14px">Sürüm</b>
+        <div class="chips" style="margin-top:8px"><span class="variant active">v2.0</span><span class="variant">v1.x (legacy)</span></div>
+        <div class="notice" style="margin-top:12px">Stok 0'a düştüğünde varyant otomatik "satış dışı" olur.</div>
+      </div>
+    </section>
+
+    <section id="page-physical" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Fiziksel Ürün</h2></div>
+      <div class="grid2">
+        <div class="feature-card"><b>🖨️ Poster — Limited</b><p class="muted">₺149 · 50 adet stok · 3-5 gün kargo</p><button class="btn" style="margin-top:10px" onclick="toast('Sepete eklendi')">Sepete Ekle</button></div>
+        <div class="feature-card"><b>👕 T-Shirt — Developer</b><p class="muted">₺299 · 8 varyant · Ücretsiz kargo 500₺+</p><button class="btn" style="margin-top:10px" onclick="toast('Sepete eklendi')">Sepete Ekle</button></div>
+      </div>
+      <div class="v3-section-title"><h2>Kargo Takip Örneği</h2></div>
+      <div class="step ok"><span class="n">✓</span><span class="grow">Sipariş alındı</span><span class="muted">Dün 14:02</span></div>
+      <div class="step ok"><span class="n">✓</span><span class="grow">Hazırlanıyor</span><span class="muted">Dün 18:30</span></div>
+      <div class="step warn"><span class="n">⏳</span><span class="grow">Kargoya verildi</span><span class="muted">Bugün 10:15</span></div>
+      <div class="step"><span class="n">4</span><span class="grow">Teslim edildi</span><span class="muted">—</span></div>
+    </section>
+
+    <section id="page-seller" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">SELLER PANEL</span><h1>Satıcı Paneli</h1><p>Satış raporu, müşteri mesajları ve puanlama.</p></div>
+      <div class="grid3">
+        <div class="kpi"><span class="muted">Bu ay satış</span><b>₺24.8K</b><span class="up">+18%</span></div>
+        <div class="kpi"><span class="muted">Sipariş</span><b>326</b><span class="up">+42</span></div>
+        <div class="kpi"><span class="muted">Ort. puan</span><b>4.9 ★</b><span class="muted">214 yorum</span></div>
+      </div>
+      <div class="v3-section-title"><h2>Son Müşteri Mesajları</h2></div>
+      <div class="card" style="padding:14px">
+        <div class="tx"><span>💬</span><div class="grow"><b>@kaan</b><div class="muted">"Lisans yükseltmesi mümkün mü?" · 8 dk</div></div><button class="chip">Yanıtla</button></div>
+        <div class="tx"><span>💬</span><div class="grow"><b>@selin</b><div class="muted">"Fatura adresi güncellenebilir mi?" · 32 dk</div></div><button class="chip">Yanıtla</button></div>
+      </div>
+    </section>
+
+    <section id="page-reviews" class="page" style="display:none">
+      <div class="v3-section-title"><h2>İnceleme & Puan</h2><span class="muted">4.9 ★ · 214 yorum</span></div>
+      <div class="feature-card"><b>@kaan <span class="badge ok">✔ Doğrulanmış alışveriş</span></b><div style="color:#f59e0b;margin:6px 0">★★★★★</div><p>Kod kalitesi harika, dokümantasyon detaylı.</p></div>
+      <div class="feature-card" style="margin-top:10px"><b>@selin <span class="badge ok">✔ Doğrulanmış alışveriş</span></b><div style="color:#f59e0b;margin:6px 0">★★★★☆</div><p>Kurulumda ufak sorun yaşadım, destek hızlı döndü.</p><div class="chips" style="margin-top:8px"><span class="chip">📷 Ekran görüntüsü</span><span class="chip">👍 Yardımcı (12)</span></div></div>
+    </section>
+
+    <section id="page-shipping" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Kargo Entegrasyonları</h2></div>
+      <div class="grid3">
+        <div class="feature-card"><b>🟠 Aras Kargo</b><p class="muted">Bağlı · Otomatik takip kodu</p></div>
+        <div class="feature-card"><b>🔵 Yurtiçi Kargo</b><p class="muted">Bağlı · Desi hesaplama</p></div>
+        <div class="feature-card"><b>🟢 MNG Kargo</b><p class="muted">Bağlı · İade desteği</p></div>
+      </div>
+      <div class="notice" style="margin-top:12px">Kargo API anahtarları backend'de şifreli saklanır; sipariş oluştuğunda otomatik etiket üretilir.</div>
+    </section>
+
+    <section id="page-returns" class="page" style="display:none">
+      <div class="v3-section-title"><h2>İade Merkezi</h2></div>
+      <div class="step ok"><span class="n">✓</span><span class="grow">İade talebi</span><span class="muted">Bugün 09:12</span></div>
+      <div class="step ok"><span class="n">✓</span><span class="grow">Onaylandı</span><span class="muted">Bugün 11:04</span></div>
+      <div class="step warn"><span class="n">⏳</span><span class="grow">Ürünü kargoya ver</span><span class="muted">3 gün içinde</span></div>
+      <div class="step"><span class="n">4</span><span class="grow">Ürün ulaştı → stok girişi</span><span class="muted">—</span></div>
+      <div class="step"><span class="n">5</span><span class="grow">Para iadesi (3-5 iş günü)</span><span class="muted">—</span></div>
+    </section>
+
+    <section id="page-bundle" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Bundle / Koleksiyon</h2></div>
+      <div class="bundle" style="margin-bottom:10px"><span>💻</span><span class="grow">PHP Admin Kit</span><span class="muted">₺799</span></div>
+      <div class="bundle" style="margin-bottom:10px"><span>🎨</span><span class="grow">UI Kit Pro</span><span class="muted">₺499</span></div>
+      <div class="bundle" style="margin-bottom:10px"><span>🧠</span><span class="grow">AI Prompt Pack</span><span class="muted">₺249</span></div>
+      <div class="feature-card" style="margin-top:12px"><b>Toplam: <s class="muted">₺1.547</s> → <span style="color:#15803d">₺1.199</span></b><p class="muted">%22 indirim · bundle olarak sat</p><button class="btn" style="margin-top:10px" onclick="toast('Bundle oluşturuldu')">Bundle Olarak Yayınla</button></div>
+    </section>
+
+    <section id="page-safety" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">TRUST & SAFETY</span><h1>Moderasyon Kuyruğu</h1><p>Rapor kuyruğu, karar geçmişi ve itiraz akışı.</p></div>
+      <div class="grid3"><div class="kpi"><span class="muted">Açık rapor</span><b>14</b></div><div class="kpi"><span class="muted">Bugün karar</span><b>82</b></div><div class="kpi"><span class="muted">Ort. süre</span><b>2.4 sa</b></div></div>
+      <div class="queue"><div class="head"><b>#4821 · Spam yorum</b><span class="severity low">Düşük</span></div><p class="muted">@spambot123 tarafından 12 gönderiye aynı link.</p><div class="chips" style="margin-top:8px"><button class="admin-btn">Onayla</button><button class="admin-btn danger">Kaldır</button><button class="admin-btn">Ban 7g</button></div></div>
+      <div class="queue"><div class="head"><b>#4820 · Nefret söylemi</b><span class="severity high">Yüksek</span></div><p class="muted">@user_x · 3 şikayet · kanıt eklendi.</p><div class="chips" style="margin-top:8px"><button class="admin-btn danger">Kalıcı Ban</button><button class="admin-btn">İncele</button></div></div>
+    </section>
+
+    <section id="page-appeal" class="page" style="display:none">
+      <div class="v3-section-title"><h2>İtirazlar</h2></div>
+      <div class="feature-card"><b>@user_x · Ban itirazı</b><p class="muted">"Yanlış anlaşılma, bağlam dışı alındı."</p><div class="chips" style="margin-top:8px"><button class="admin-btn primary">Kabul Et</button><button class="admin-btn">Reddet</button><button class="admin-btn">Hakem Ata</button></div></div>
+    </section>
+
+    <section id="page-age" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">AGE GATE</span><h1>Yaş Doğrulama</h1><p>18+ içerik kilidi ve doğrulama akışı.</p></div>
+      <div class="step-verify"><div class="icon">🎂</div><div><b>Doğum tarihi</b><p class="muted">01.01.1995 · 29 yaş</p></div><span class="badge ok">✔ Doğrulandı</span></div>
+      <div class="notice" style="margin-top:12px">Doğrulanmamış kullanıcılar 18+ içerikleri göremez; dış bağlantılarda uyarı gösterilir.</div>
+    </section>
+
+    <section id="page-kyc" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">IDENTITY</span><h1>KYC</h1><p>Satıcı ve creator'lar için zorunlu kimlik doğrulama.</p></div>
+      <div class="upload"><b>📄 Kimlik Ön Yüz</b><p class="muted">JPG/PNG · maks 5MB</p></div>
+      <div class="upload" style="margin-top:10px"><b>📄 Kimlik Arka Yüz</b><p class="muted">JPG/PNG · maks 5MB</p></div>
+      <div class="upload" style="margin-top:10px"><b>🤳 Selfie + Kimlik</b><p class="muted">Canlı çekim zorunlu</p></div>
+      <button class="btn" style="width:100%;margin-top:14px">Doğrulamayı Gönder</button>
+      <div class="notice" style="margin-top:12px">Belgeler şifreli saklanır; sadece uyum ekibi erişir. Log kaydı tutulur.</div>
+    </section>
+
+    <section id="page-twofa" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">SECURITY</span><h1>2FA / Passkey</h1><p>TOTP, WebAuthn/Passkey ve yedek kodlar.</p></div>
+      <div class="step-verify"><div class="icon">📱</div><div class="grow"><b>Authenticator (TOTP)</b><p class="muted">Google Auth, 1Password, Authy</p></div><span class="badge ok">Aktif</span></div>
+      <div class="step-verify" style="margin-top:10px"><div class="icon">🔑</div><div class="grow"><b>Passkey (WebAuthn)</b><p class="muted">Touch ID · Windows Hello</p></div><button class="btn">Ekle</button></div>
+      <div class="v3-section-title"><h2>Yedek Kodlar</h2></div>
+      <div class="code-chip">A1B2-C3D4</div> <div class="code-chip">E5F6-G7H8</div>
+      <div class="code-chip">I9J0-K1L2</div> <div class="code-chip">M3N4-O5P6</div>
+      <div class="notice" style="margin-top:12px">Yedek kodlar sadece bir kez gösterilir; güvenli bir yerde saklayın.</div>
+    </section>
+
+    <section id="page-sessions" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Aktif Oturumlar</h2></div>
+      <div class="device current"><div class="icon">💻</div><div class="grow"><b>MacBook Pro · Chrome</b><div class="muted">İstanbul · Şimdi · Bu cihaz</div></div><span class="badge ok">Geçerli</span></div>
+      <div class="device"><div class="icon">📱</div><div class="grow"><b>iPhone 15 · Safari</b><div class="muted">Ankara · 2 saat</div></div><button class="admin-btn danger">Çıkış</button></div>
+      <div class="device"><div class="icon">💻</div><div class="grow"><b>Windows 11 · Edge</b><div class="muted">Berlin · 5 gün önce</div></div><button class="admin-btn danger">Çıkış</button></div>
+      <div class="notice" style="margin-top:12px">Şüpheli giriş tespit edilirse e-posta + push uyarısı gönderilir.</div>
+      <button class="btn" style="width:100%;margin-top:12px">Diğer Tüm Oturumları Kapat</button>
+    </section>
+
+    <section id="page-data" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">KVKK / GDPR</span><h1>Veri İndir / Sil</h1><p>Hesap verinin tamamını indir veya kalıcı silme talebi oluştur.</p></div>
+      <div class="grid2">
+        <div class="feature-card"><b>📁 Veri Paketi İndir</b><p class="muted">JSON + medya · e-posta ile link</p><button class="btn" style="margin-top:10px" onclick="toast('Talep alındı, e-posta gönderilecek')">Talep Et</button></div>
+        <div class="feature-card"><b>🗑️ Hesabı Kalıcı Sil</b><p class="muted">30 gün geri dönüşüm süresi sonrası silinir.</p><button class="admin-btn danger" style="margin-top:10px" onclick="toast('Silme talebi onay bekliyor')">Silme Talebi</button></div>
+      </div>
+    </section>
+
+    <section id="page-audit" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Audit Log</h2><span class="muted">Son 7 gün</span></div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="logrow" style="background:#f8fafc;color:var(--muted);font-weight:800"><span>Tarih</span><span>Kişi</span><span>Olay</span></div>
+        <div class="logrow"><span class="t">2026-09-10 14:02</span><span>@bora</span><span><span class="a">post.create</span> · #4821</span></div>
+        <div class="logrow"><span class="t">2026-09-10 13:58</span><span>@selin</span><span><span class="a">subscription.renewed</span> · Pro</span></div>
+        <div class="logrow"><span class="t">2026-09-10 12:14</span><span>@admin_1</span><span><span class="a">user.ban</span> · @spambot123 (7g)</span></div>
+        <div class="logrow"><span class="t">2026-09-09 22:04</span><span>@kaan</span><span><span class="a">apikey.rotate</span> · prod</span></div>
+      </div>
+    </section>
+
+    <section id="page-ratelimit" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Kullanım Kotaları</h2></div>
+      <div class="quota"><div class="head"><span>API çağrısı (bugün)</span><span>842 / 10.000</span></div><div class="bar"><i style="width:8%"></i></div></div>
+      <div class="quota warn"><div class="head"><span>AI token (ay)</span><span>1.24M / 2M</span></div><div class="bar"><i style="width:62%"></i></div></div>
+      <div class="quota err"><div class="head"><span>Post oluşturma (saat)</span><span>48 / 50</span></div><div class="bar"><i style="width:96%"></i></div></div>
+      <div class="notice" style="margin-top:12px">Limit aşıldığında 429 döner; yükseltme için plan sayfasına yönlendirilir.</div>
+    </section>
+
+    <section id="page-e2ee" class="page" style="display:none">
+      <div class="v3-hero"><span class="badge">END-TO-END</span><h1>Şifreli DM</h1><p>Uçtan uca şifreli mesajlaşma (E2EE).</p></div>
+      <div class="feature-card">
+        <div style="display:flex;justify-content:space-between;align-items:center"><b>🔒 E2EE Aktif</b><label class="switch"><input type="checkbox" checked><span></span></label></div>
+        <p class="muted" style="margin-top:10px">Anahtarlar cihazda saklanır; sunucu içeriği göremez.</p>
+      </div>
+      <div class="v3-section-title"><h2>Doğrulama</h2></div>
+      <div class="code-chip">Sesli parmak izi: 4 8 2 1 9 3 0 7</div>
+      <div class="notice" style="margin-top:12px">Yeni cihaz eklendiğinde güvenlik kodu karşılaştırması istenir.</div>
+    </section>
+
+    <section id="page-block" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Engellenen Hesaplar</h2><button class="chip">+ Ekle</button></div>
+      <div class="list">
+        <div class="list-item"><span>@spam_bot_42 <small class="muted">· 12 gün önce</small></span><button class="admin-btn">Kaldır</button></div>
+        <div class="list-item"><span>@troll_user <small class="muted">· 1 ay önce</small></span><button class="admin-btn">Kaldır</button></div>
+      </div>
+      <div class="v3-section-title"><h2>Sessize Alınanlar</h2></div>
+      <div class="list"><div class="list-item"><span>@noisy_dev</span><button class="admin-btn">Aç</button></div></div>
+    </section>
+
+    <section id="page-passport" class="page" style="display:none">
+      <div class="profile-passport"><div class="avatar" style="width:70px;height:70px">B</div><div><h2>Bora</h2><div class="passport-id">vivox.com/@bora</div><p class="muted">Creator · Developer · AI Builder</p></div><button class="btn">Paylaş</button></div>
+      <div class="v3-section-title"><h2>Social Identity</h2></div><div class="chips"><span class="chip">GitHub</span><span class="chip">LinkedIn</span><span class="chip">YouTube</span><span class="chip">TikTok</span><span class="chip">X</span><span class="chip">Discord</span><span class="chip">Website</span></div>
+      <div class="v3-section-title"><h2>Rozetler</h2></div><div class="grid3"><div class="feature-card">✓ Verified</div><div class="feature-card">💻 Developer</div><div class="feature-card">🤖 AI Creator</div><div class="feature-card">🎨 Creator</div><div class="feature-card">🏪 Seller</div><div class="feature-card">⚡ 30 Day Streak</div></div>
+    </section>
+
+    <section id="page-profile" class="page" style="display:none">
+      <div class="profile-passport"><div class="avatar" style="width:70px;height:70px">B</div><div><h2>Bora</h2><p class="muted">@bora · Creator / Developer</p><span class="badge">Seviye 12</span></div><button class="btn">Profili Düzenle</button></div>
+      <div class="v3-section-title"><h2>Aktivite</h2></div><div class="grid3"><div class="kpi"><span class="muted">FP</span><b>2,840</b></div><div class="kpi"><span class="muted">Takipçi</span><b>18.4K</b></div><div class="kpi"><span class="muted">Satış</span><b>326</b></div></div>
+    </section>
+
+    <section id="page-settings" class="page" style="display:none">
+      <div class="v3-section-title"><h2>Ayarlar</h2></div>
+      <div class="list">
+        <div class="list-item"><span>🔐 Güvenlik ve giriş</span><button class="chip">Aç</button></div>
+        <div class="list-item"><span>🛡️ Gizlilik</span><button class="chip">Aç</button></div>
+        <div class="list-item"><span>👻 Ghost Mode</span><button class="chip">Kapalı</button></div>
+        <div class="list-item"><span>🌐 Dil</span><button class="chip">Türkçe / English</button></div>
+        <div class="list-item"><span>🔗 Bağlı AI'lar</span><button class="chip" onclick="showPage('ai')">Yönet</button></div>
+        <div class="list-item"><span>🚫 Engellenen hesaplar</span><button class="chip" onclick="showPage('block')">Yönet</button></div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="v3-right">
+    <div class="v3-section-title" style="margin-top:0"><h2>Trendler</h2><button class="chip" onclick="showPage('trends')">Tümü</button></div>
+    <div class="list"><div class="list-item"><span>#AI</span><b>82K</b></div><div class="list-item"><span>#CyberSecurity</span><b>64K</b></div><div class="list-item"><span>#WebDevelopment</span><b>51K</b></div></div>
+    <div class="v3-section-title"><h2>Önerilen</h2></div>
+    <div class="list"><div class="list-item"><span>Deniz AI<br><small class="muted">@denizai</small></span><button class="chip" onclick="follow(this)">Takip</button></div><div class="list-item"><span>Kaan Dev<br><small class="muted">@kaandev</small></span><button class="chip" onclick="follow(this)">Takip</button></div></div>
+    <div class="v3-section-title"><h2>Günlük Görev</h2></div>
+    <div class="feature-card"><b>3 içerikle etkileşime gir</b><p class="muted">2 / 3 tamamlandı</p><span class="badge">+50 FP</span></div>
+    <div class="v3-section-title"><h2>Streak</h2></div>
+    <div class="feature-card"><b>⚡ 18 gün</b><p class="muted">Yarın giriş yap +25 FP</p></div>
+  </aside>
+</div>
+
+<nav class="bottom-nav">
+  <button onclick="showPage('home')">🏠<br>Ana</button><button onclick="showPage('explore')">🔎<br>Keşfet</button><button onclick="showPage('videox')">🎬<br>Videox</button><button onclick="showPage('ai')">✨<br>AI</button><button onclick="showPage('profile')">👤<br>Profil</button>
+</nav>
+
+<div id="walletModal" class="modal-wrap"><div class="modal-card"><div class="modal-head"><h2>Vivox Cüzdan</h2><button class="x" onclick="closeModal('walletModal')">✕</button></div><div class="kpi"><span class="muted">Demo bakiye</span><b>₺1.250</b></div><div class="chips" style="margin-top:12px"><span class="chip">Para ekle</span><span class="chip">Çekim talebi</span><span class="chip">İşlemler</span></div><p class="muted" style="margin-top:12px">Gerçek finansal işlemler backend ledger, idempotency, KYC/AML ve denetim kontrolleri gerektirir.</p></div></div>
+<div id="messagesModal" class="modal-wrap"><div class="modal-card"><div class="modal-head"><h2>Mesajlar</h2><button class="x" onclick="closeModal('messagesModal')">✕</button></div><p class="muted">Yeni mesaj, grup, sesli mesaj, dosya ve çağrı özellikleri burada çalışır.</p></div></div>
+<div id="notificationsModal" class="modal-wrap"><div class="modal-card"><div class="modal-head"><h2>Bildirimler</h2><button class="x" onclick="closeModal('notificationsModal')">✕</button></div><div class="list"><div class="list-item">⭐ Gönderin +10 FP kazandı <span class="muted">2 dk</span></div><div class="list-item">👤 Deniz sizi takip etti <span class="muted">8 dk</span></div><div class="list-item">🛒 Ürününüz satın alındı <span class="muted">24 dk</span></div></div></div></div>
+
+<div id="campaignModal" class="modal-wrap"><div class="modal-card"><div class="modal-head"><h2>Yeni Kampanya</h2><button class="x" onclick="closeModal('campaignModal')">✕</button></div><input placeholder="Kampanya adı"><select><option>CPC</option><option>CPM</option></select><input placeholder="Günlük bütçe (₺)"><input placeholder="Hedef kitle (ör. TR 18-34, Developer)"><button class="btn" onclick="closeModal('campaignModal');toast('Kampanya oluşturuldu')">Başlat</button></div></div>
+<div id="eventModal" class="modal-wrap"><div class="modal-card"><div class="modal-head"><h2>Etkinlik Oluştur</h2><button class="x" onclick="closeModal('eventModal')">✕</button></div><input placeholder="Başlık"><input type="datetime-local"><textarea placeholder="Açıklama"></textarea><button class="btn" onclick="closeModal('eventModal');toast('Etkinlik oluşturuldu')">Yayınla</button></div></div>
+<div id="threadModal" class="modal-wrap"><div class="modal-card"><div class="modal-head"><h2>Yeni Konu</h2><button class="x" onclick="closeModal('threadModal')">✕</button></div><input placeholder="Başlık"><textarea placeholder="İçerik"></textarea><input placeholder="Etiketler (#react, #node)"><button class="btn" onclick="closeModal('threadModal');toast('Konu açıldı')">Paylaş</button></div></div>
+<div id="bountyModal" class="modal-wrap"><div class="modal-card"><div class="modal-head"><h2>Bounty Aç</h2><button class="x" onclick="closeModal('bountyModal')">✕</button></div><input placeholder="Görev başlığı"><input placeholder="Ödül (₺ veya FP)"><textarea placeholder="Beklenen çıktı + test kriteri"></textarea><button class="btn" onclick="closeModal('bountyModal');toast('Bounty açıldı')">Yayınla</button></div></div>
+<div id="webhookModal" class="modal-wrap"><div class="modal-card"><div class="modal-head"><h2>Webhook Ekle</h2><button class="x" onclick="closeModal('webhookModal')">✕</button></div><input placeholder="https://..."><select><option>order.paid</option><option>post.created</option><option>subscription.renewed</option></select><button class="btn" onclick="closeModal('webhookModal');toast('Webhook kaydedildi')">Kaydet</button></div></div>
+
+<script>
+/* ===================== AKORDEON SIDEBAR ===================== */
+function toggleNavGroup(headEl){
+  const wrap = headEl.parentElement;
+  const isOpen = wrap.classList.contains('open');
+  // Aynı anda tek grup açık olsun istiyorsan: diğerlerini kapat
+  document.querySelectorAll('.v3-nav .nav-group-wrap.open').forEach(w=>{
+    if(w!==wrap) w.classList.remove('open');
+  });
+  wrap.classList.toggle('open', !isOpen);
+}
+function openGroupOf(pageName){
+  const map={
+    ads:'money', subs:'money', tips:'money', pay:'money',
+    events:'social', polls:'social', game:'social', spaces:'social',
+    forum:'social', bounties:'social', collections:'social', campus:'social',
+    playground:'dev', repo:'dev', webhooks:'dev',
+    orders:'store', licensing:'store', digital:'store', variants:'store',
+    physical:'store', seller:'store', reviews:'store', shipping:'store',
+    returns:'store', bundle:'store',
+    safety:'security', appeal:'security', age:'security', kyc:'security',
+    twofa:'security', sessions:'security', data:'security', audit:'security',
+    ratelimit:'security', e2ee:'security', block:'security',
+    passport:'account', settings:'account'
+  };
+  const g = map[pageName];
+  if(!g) return;
+  // Önce tümünü kapat, ilgili olanı aç
+  document.querySelectorAll('.v3-nav .nav-group-wrap').forEach(w=>w.classList.remove('open'));
+  const wrap = document.querySelector('.v3-nav .nav-group-wrap[data-group="'+g+'"]');
+  if(wrap) wrap.classList.add('open');
+}
+
+/* ===================== SAYFA YÖNETİMİ ===================== */
+function showPage(name){
+  document.querySelectorAll('.page').forEach(x=>x.style.display='none');
+  const p=document.getElementById('page-'+name);
+  if(p)p.style.display='block';
+
+  // Aktif vurgusunu TÜM menü butonlarından temizle
+  document.querySelectorAll('.v3-nav button').forEach(x=>x.classList.remove('active'));
+
+  // Sabit üst menü index haritası
+  const topMap={
+    home:0,explore:1,videox:2,visual:3,community:4,live:5,messages:6,market:7,
+    developer:8,ai:9,trends:10,circles:11,creator:12
+  };
+
+  if(topMap[name]!==undefined){
+    const btns = document.querySelectorAll('.v3-nav > button');
+    if(btns[topMap[name]]) btns[topMap[name]].classList.add('active');
+  } else {
+    // Grup içindeki ilgili butonu bul ve aktifleştir
+    const all = document.querySelectorAll('.v3-nav .nav-group-body button');
+    all.forEach(b=>{
+      const oc=b.getAttribute('onclick')||'';
+      if(oc.includes("showPage('"+name+"')")) b.classList.add('active');
+    });
+    // İçeren grubu aç
+    openGroupOf(name);
+  }
+
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+document.querySelectorAll('.modal-wrap').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+function like(btn){btn.textContent=btn.textContent.replace('♡','♥').replace(/(\d+)/,(_,n)=>+n+1);btn.dataset.liked='1'}
+function fp(btn){btn.textContent='⭐ FP +10 ✓';btn.disabled=true}
+function follow(btn){btn.textContent='Takip ediliyor';btn.disabled=true}
+function publishPost(){
+  const t=document.getElementById('postText'), v=t.value.trim();
+  if(!v)return;
+  const el=document.createElement('article');el.className='post';
+  el.innerHTML='<div class="post-head"><div class="avatar">B</div><div><b>Bora</b><div class="muted">@bora · şimdi</div></div></div><div class="post-body">'+escapeHTML(v)+'</div><div class="post-actions"><button onclick="like(this)">♡ 0</button><button>💬 0</button><button>↗ Paylaş</button><button onclick="fp(this)">⭐ FP +10</button></div>';
+  document.getElementById('feed').prepend(el);t.value='';
+}
+function escapeHTML(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function setAIMode(btn,mode){document.querySelectorAll('.ai-list button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('aiModeTitle').textContent=mode}
+function runAI(){
+  const mode=document.getElementById('aiModeTitle').textContent, prompt=document.getElementById('aiPrompt').value.trim()||'Örnek bir Vivox AI görevi';
+  document.getElementById('aiResult').innerHTML='<b>'+escapeHTML(mode)+'</b><p style="margin-top:8px">Demo çıktı: "'+escapeHTML(prompt)+'"</p><p class="muted" style="margin-top:7px">Gerçek sürümde istek seçilen 1–3 kullanıcı AI bağlantısına backend üzerinden gönderilir; Compare sonuçları yan yana, Council ortak değerlendirme, Router ise göreve göre model seçimi yapar.</p>';
+}
+function searchVivox(v){
+  if(v.length>2) console.log('Vivox search:',v);
+}
+function toast(msg){
+  let t=document.getElementById('__toast');
+  if(!t){t=document.createElement('div');t.id='__toast';t.className='toast';document.body.appendChild(t)}
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),1800);
+}
+function sendGift(el,emoji,fp){
+  el.style.transform='scale(.94)';
+  setTimeout(()=>el.style.transform='',150);
+  toast(emoji+' gönderildi · -'+fp+' FP');
+}
+function votePoll(el,pct){
+  const box=document.getElementById('pollBox'); if(!box||box.dataset.voted)return;
+  box.querySelectorAll('.poll-option').forEach(o=>{
+    const p=+o.querySelector('span span:last-child').textContent.replace('%','');
+    o.querySelector('i').style.width=p+'%';
+  });
+  const mine=el.querySelector('span span:last-child');
+  mine.textContent=(pct+1)+'%';
+  box.dataset.voted='1';
+  toast('Oyunuz kaydedildi');
+}
+function tab(btn,id){
+  const parent=btn.parentElement;
+  parent.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const wrap=document.getElementById(id).parentElement;
+  wrap.querySelectorAll('[data-tab]').forEach(p=>p.style.display='none');
+  document.getElementById(id).style.display='';
+}
+
+/* İlk açılışta home aktif */
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.v3-nav > button')[0]?.classList.add('active');
+});
+</script>
+</body>
+</html>
