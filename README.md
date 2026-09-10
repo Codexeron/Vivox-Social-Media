@@ -18,11 +18,6 @@
 - [Kurulum](#-kurulum)
 - [Kullanım](#-kullanım)
 - [Modüller](#-modüller)
-- [Teknoloji Yığını](#-teknoloji-yığını)
-- [Güvenlik](#-güvenlik)
-- [Yol Haritası](#-yol-haritası)
-- [Katkıda Bulunma](#-katkıda-bulunma)
-- [Lisans](#-lisans)
 
 ---
 
