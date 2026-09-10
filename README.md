@@ -194,74 +194,16 @@ Doğrulanabilir kimlik kartı + rozetler + Social Identity.
 🐙 GitHub Entegrasyonu (Yakında)
 OAuth ile GitHub bağla → commit akışı, repo vitrini, katkı grafiği, doğrulama rozeti.
 
+MIT License
 
-VIVOX EKOSİSTEMİ
-├── Sosyal Medya
-│   ├── Feed, Hikâyeler, Post, Beğeni, Kaydetme
-│   ├── Mesajlar (1:1, grup, E2EE)
-│   ├── Circles (görünürlük)
-│   └── Forum (thread, oy, kabul edilen cevap)
-│
-├── Creator Ekonomisi
-│   ├── Creator Studio (analitik, gelir)
-│   ├── Abonelikler (3 tier)
-│   ├── Bağış & Bahşiş (8 hediye)
-│   ├── Ads (kampanya, A/B, hedef kitle)
-│   └── Marka işbirliği
-│
-├── Mağaza & Ticaret
-│   ├── Dijital ürünler
-│   ├── Fiziksel ürünler (kargo, stok, varyant)
-│   ├── Lisanslama (3 tip)
-│   ├── Sipariş, İade, Kargo entegrasyonu
-│   ├── Bundle / Koleksiyon
-│   └── Satıcı paneli
-│
-├── Developer Araçları
-│   ├── Code Playground
-│   ├── Repo / Snippet
-│   ├── Webhooks
-│   ├── Mini Apps & Bot Marketplace
-│   ├── API entegrasyonu
-│   └── Bounties
-│
-├── AI Katmanı (BYOAI)
-│   ├── 3 slot AI bağlama
-│   ├── 5 mod (Tek, Compare, Council, Router, Judge)
-│   ├── Prompt library
-│   └── Provider desteği
-│
-├── İçerik Türleri
-│   ├── Videox (video)
-│   ├── Görselix (görsel)
-│   ├── Canlı yayın
-│   ├── Sesli odalar
-│   ├── Anket & Quiz
-│   └── Etkinlikler
-│
-├── Güvenlik & Uyum
-│   ├── Trust & Safety (moderasyon)
-│   ├── İtiraz, Yaş, KYC
-│   ├── 2FA / Passkey
-│   ├── Oturum yönetimi
-│   ├── Audit log, Rate limit
-│   ├── E2EE DM
-│   ├── Veri indir/sil (KVKK/GDPR)
-│   └── Engelleme
-│
-├── Oyunlaştırma
-│   ├── FP / XP ayrımı
-│   ├── Seviye & Streak
-│   ├── Günlük görevler
-│   └── Liderlik tablosu
-│
-├── Ödeme
-│   ├── Vivox Pay (QR, fatura)
-│   ├── Cüzdan (₺1.250)
-│   ├── FP → ₺ dönüşüm
-│   └── Çoklu para birimi
-│
-└── Kimlik
-    ├── Vivox Passport (SSO)
-    ├── Rozetler (6 tip)
-    └── Social Identity bağlantıları
+Copyright (c) 2026 Vivox
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
